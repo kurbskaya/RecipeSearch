@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_fridge"
+        android:enabled="true"
+        android:icon="@drawable/ic_list"
+        android:title="@string/products"/>
+
+    <item
+        android:id="@+id/page_recipes"
+        android:enabled="true"
+        android:icon="@drawable/ic_recipe"
+        android:title="@string/recipes"/>
+
+</menu>
