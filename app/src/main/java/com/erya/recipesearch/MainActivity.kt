@@ -16,18 +16,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBottomNavListener(bottomNavigationView: BottomNavigationView) {
         bottomNavigationView.setOnItemSelectedListener { item ->
-            val fragment: Fragment
             when (item.itemId) {
                 R.id.page_fridge -> {
-                    fragment = FridgeFragment()
-                    loadFragment(fragment)
+                    loadFragment(FridgeFragment())
                     true
                 }
                 R.id.page_recipes -> {
-                    fragment = RecipeFragment()
-                    loadFragment(fragment)
+                    loadFragment(RecipeFragment())
                     true
-
                 }
                 else -> false
             }
