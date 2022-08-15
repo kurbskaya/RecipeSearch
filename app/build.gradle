@@ -32,8 +32,14 @@ android {
 }
 
 dependencies {
+    implementation project(':feature_fridge:presentation')
+    implementation project(':feature_fridge:data')
+    implementation project(':feature_fridge:domain')
+    implementation project(':feature_recipe:presentation')
+    implementation project(':feature_recipe:data')
+    implementation project(':feature_recipe:domain')
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
