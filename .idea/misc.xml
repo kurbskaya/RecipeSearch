@@ -3,12 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/autocomplete_background.xml" value="0.188" />
+        <entry key="app/src/main/res/drawable/bg_trip_bottom_pannel.xml" value="0.176" />
+        <entry key="app/src/main/res/drawable/blue_outline.xml" value="0.188" />
         <entry key="app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.176" />
+        <entry key="app/src/main/res/drawable/ic_clear_button.xml" value="0.188" />
+        <entry key="app/src/main/res/drawable/ic_dismiss_button.xml" value="0.188" />
         <entry key="app/src/main/res/drawable/ic_list.xml" value="0.176" />
+        <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.188" />
         <entry key="app/src/main/res/drawable/ic_recipe.xml" value="0.176" />
+        <entry key="app/src/main/res/drawable/ic_vector.xml" value="0.188" />
+        <entry key="app/src/main/res/drawable/round_corners.xml" value="0.176" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_fridge.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_recipe.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/layout/item_product.xml" value="0.19166666666666668" />
+        <entry key="app/src/main/res/layout/item_serach_product.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/product_item_layout.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/spinner.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19166666666666668" />
       </map>
     </option>
