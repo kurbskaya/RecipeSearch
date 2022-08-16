@@ -1,6 +1,6 @@
 package com.project.giniatovia.data.datasource
 
-import com.project.giniatovia.core_network_api.interfaces.RecipesApi
+import com.erya.recipesearch.network.api.RecipesApi
 import com.project.giniatovia.data.mapper.RecipesResponseMapper
 import com.project.giniatovia.domain.models.RecipesList
 import io.reactivex.rxjava3.core.Single

@@ -1,6 +1,6 @@
 package com.project.giniatovia.data.mapper
 
-import com.project.giniatovia.core_network_api.models.RecipesList as CoreRecipeList
+import com.erya.recipesearch.network.models.RecipesList as CoreRecipeList
 import com.project.giniatovia.domain.models.RecipesList as DomainRecipeList
 import com.project.giniatovia.domain.models.Recipe as DomainRecipe
 import com.project.giniatovia.domain.models.Step as DomainStep

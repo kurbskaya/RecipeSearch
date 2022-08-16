@@ -30,8 +30,7 @@ android {
 }
 
 dependencies {
-    implementation project(':core-network-api')
-    implementation project(':core-utils')
+    implementation project(':app')
     implementation project(':feature_recipe:domain')
     implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1'
 

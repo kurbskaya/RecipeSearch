@@ -29,12 +29,18 @@ class FridgeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, SearchProductFragment())
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 
 //        productAdapter = ProductAdapter(ProductClickListener { id ->
 //            viewModel.deleteProduct(id)
@@ -45,6 +51,5 @@ class FridgeFragment : Fragment() {
 
         //observes
         //submitlist
-    }
 
 }
