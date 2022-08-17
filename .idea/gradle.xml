@@ -11,14 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/feature_fridge" />
-            <option value="$PROJECT_DIR$/feature_fridge/data" />
-            <option value="$PROJECT_DIR$/feature_fridge/domain" />
-            <option value="$PROJECT_DIR$/feature_fridge/presentation" />
             <option value="$PROJECT_DIR$/feature_recipe" />
-            <option value="$PROJECT_DIR$/feature_recipe/data" />
-            <option value="$PROJECT_DIR$/feature_recipe/domain" />
-            <option value="$PROJECT_DIR$/feature_recipe/presentation" />
           </set>
         </option>
       </GradleProjectSettings>

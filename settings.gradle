@@ -14,10 +14,13 @@ dependencyResolutionManagement {
 }
 rootProject.name = "RecipeSearch"
 include ':app'
-include ':feature_fridge:data'
-include ':feature_fridge:presentation'
-include ':feature_fridge:domain'
-
-include ':feature_recipe:data'
-include ':feature_recipe:presentation'
-include ':feature_recipe:domain'
+//include ':feature_fridge:data'
+//include ':feature_fridge:presentation'
+//include ':feature_fridge:domain'
+//
+//include ':feature_recipe:data'
+//include ':feature_recipe:presentation'
+//include ':feature_recipe:domain'
+include ':core'
+include ':feature_recipe'
+include ':feature_fridge'

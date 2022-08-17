@@ -17,7 +17,7 @@
         android:theme="@style/Theme.RecipeSearch"
         tools:targetApi="31">
         <activity
-            android:name="com.project.giniatovia.presentation.MainActivity"
+            android:name="com.erya.recipesearch.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
