@@ -1,4 +1,4 @@
-package com.project.giniatovia.feature_fridge.presentation.data
+package com.project.giniatovia.core.network.data
 
 import android.content.Context
 
@@ -8,6 +8,8 @@ class CSVParser(private val context: Context, private val filename: String) {
             .open(filename)
             .bufferedReader()
             .use { it.readLines() }
-            .map { it.substringBefore(';') }
+            .map { it.substringBefore(';')
+                     .replaceFirstChar { ch -> ch.uppercase() }
+            }
     }
 }
