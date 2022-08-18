@@ -26,11 +26,12 @@ class MainActivity : AppCompatActivity() {
             .fromCallable{ CSVParser(applicationContext,"ingredients.csv").parse() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                val allIngredients = it
+            .subscribe({ parsedResult ->
+                val allIngredients = arrayListOf<String>()
+                parsedResult.forEach{ entry -> allIngredients.add(entry.key) }
                 Log.i(LOG_TAG, allIngredients.size.toString())
-                Log.i(LOG_TAG, allIngredients[0])
-                Log.i(LOG_TAG, allIngredients[999])
+                Log.i(LOG_TAG, allIngredients.first())
+                Log.i(LOG_TAG, allIngredients.last())
             }, {
                 Log.e(LOG_TAG, it.toString())
             })
