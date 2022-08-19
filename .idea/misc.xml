@@ -43,12 +43,15 @@
         <entry key="app/src/main/res/layout/onboarding_item.xml" value="0.2234375" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.19166666666666668" />
         <entry key="feature_fridge/src/main/res/drawable/autocomplete_background.xml" value="0.188" />
-        <entry key="feature_fridge/src/main/res/layout/fragment_fridge.xml" value="0.2078125" />
+        <entry key="feature_fridge/src/main/res/drawable/ic_close.xml" value="0.188" />
+        <entry key="feature_fridge/src/main/res/drawable/main_button_background.xml" value="0.188" />
+        <entry key="feature_fridge/src/main/res/layout/fragment_fridge.xml" value="0.1" />
         <entry key="feature_fridge/src/main/res/layout/fragment_search.xml" value="0.2078125" />
+        <entry key="feature_fridge/src/main/res/layout/item_product.xml" value="0.30570652173913043" />
+        <entry key="feature_fridge/src/main/res/layout/item_search_product.xml" value="0.30570652173913043" />
         <entry key="feature_fridge/src/main/res/layout/product_item_layout.xml" value="0.2078125" />
         <entry key="feature_recipe/src/main/res/drawable/bottom_navigation_selector.xml" value="0.188" />
         <entry key="feature_recipe/src/main/res/drawable/ic_recipe.xml" value="0.188" />
-        <entry key="feature_fridge/src/main/res/layout/fragment_fridge.xml" value="0.1" />
       </map>
     </option>
   </component>

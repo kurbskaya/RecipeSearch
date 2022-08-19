@@ -1,26 +1,15 @@
 package com.project.giniatovia.feature_fridge.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.project.giniatovia.feature_recipe.presentation.models.Product
+import com.project.giniatovia.feature_fridge.presentation.models.Product
 
-class ProductDiffCallback(
-    private val oldList: List<Product>,
-    private val newList: List<Product>
-) : DiffUtil.Callback() {
+class ProductDiffCallback: DiffUtil.ItemCallback<Product>() {
 
-    override fun getOldListSize() = oldList.size
-
-    override fun getNewListSize() = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldString = oldList[oldItemPosition]
-        val newString = newList[newItemPosition]
-        return oldString.id == newString.id
+    override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldString = oldList[oldItemPosition]
-        val newString = newList[newItemPosition]
-        return oldString.name == newString.name
+    override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+        return oldItem.name == newItem.name
     }
 }

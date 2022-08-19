@@ -15,15 +15,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
-        android:id="@+id/main_btn"
+        android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/secondary_btn"
+        android:layout_above="@+id/secondary_frame"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp">
 
         <ImageButton
+            android:id="@+id/main_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/main_button_background" />
@@ -39,7 +40,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/secondary_btn"
+        android:id="@+id/secondary_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -49,6 +50,7 @@
 
 
         <ImageButton
+            android:id="@+id/secondary_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/secondary_button_background" />

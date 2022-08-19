@@ -33,7 +33,7 @@ class SearchProductFragment : Fragment() {
 
         val adapter = ArrayAdapter(
             requireContext(),
-            R.layout.item_serach_product,
+            R.layout.item_search_product,
             R.id.nameProduct,
             countries)
         val autoCompleteWidget = binding.autoCompleteTextView

@@ -3,17 +3,17 @@ package com.project.giniatovia.feature_fridge.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.project.giniatovia.feature_fridge.databinding.ProductItemLayoutBinding
-import com.project.giniatovia.feature_recipe.presentation.models.Product
+import com.project.giniatovia.feature_fridge.databinding.ItemProductBinding
+import com.project.giniatovia.feature_fridge.presentation.models.Product
 
-class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
-    private var ingredients = mutableListOf<Product>()
+class ProductAdapter : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = ProductItemLayoutBinding.inflate(
+        val binding = ItemProductBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -22,31 +22,22 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(ingredients[position])
+        holder.bind(getItem(position))
     }
 
-    fun getAllIngredients() = ingredients
+    class ProductViewHolder(productItemLayoutBinding: ItemProductBinding)
+        : RecyclerView.ViewHolder(productItemLayoutBinding.root) {
 
-    override fun getItemCount() = ingredients.size
+        private val binding = productItemLayoutBinding
 
-    fun updateList(newTasks: List<Product>) {
-        val tasksDiffUtilCallback = ProductDiffCallback(ingredients, newTasks)
-        val tasksDiffResult = DiffUtil.calculateDiff(tasksDiffUtilCallback)
-        ingredients = newTasks.toMutableList()
-        tasksDiffResult.dispatchUpdatesTo(this)
-    }
-
-    fun addToEnd(product: Product) {
-        ingredients.add(product)
-        notifyItemInserted(itemCount)
-    }
-
-    class ProductViewHolder(
-        private val binding: ProductItemLayoutBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(product: Product){
+        fun bind(product: Product) {
             binding.name.text = product.name
+            binding.energy.text = product.energy
+            Glide.with(binding.productImage.context)
+                .load(product.image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.productImage)
         }
     }
+
 }
