@@ -19,7 +19,7 @@ import com.project.giniatovia.feature_fridge.R
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_fridge.databinding.FragmentFridgeBinding
 import com.project.giniatovia.feature_fridge.presentation.ProductAdapter
-import com.project.giniatovia.feature_fridge.presentation.models.Product
+import com.project.giniatovia.core.network.models.Product
 import com.project.giniatovia.feature_fridge.presentation.viewmodels.ProductViewModel
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
@@ -61,7 +61,7 @@ class FridgeFragment : Fragment() {
                 PageRepositoryImpl()
             )
         ).get(ProductViewModel::class.java)
-        //viewModel.getAllProducts()
+        viewModel.getAllProducts()
         return binding.root
     }
 
@@ -95,7 +95,7 @@ class FridgeFragment : Fragment() {
         }
 
         val lifecycleOwner = viewLifecycleOwner
-        viewModel.productLiveData.observe(lifecycleOwner) { productList: ArrayList<Product> ->
+        viewModel.productLiveData.observe(lifecycleOwner) { productList: List<Product> ->
             val productAdapter = binding.rv.adapter
             if (productAdapter == null) {
                 val myAdapter = ProductAdapter()

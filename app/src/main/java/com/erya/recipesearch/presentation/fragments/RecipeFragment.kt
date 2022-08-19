@@ -83,13 +83,4 @@ class RecipeFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
-
-    companion object {
-        fun newInstance(products: Array<String>? = null) =
-            RecipeFragment().apply {
-                arguments = Bundle().apply {
-                    putStringArray("PRODUCT", products)
-                }
-            }
-    }
 }
