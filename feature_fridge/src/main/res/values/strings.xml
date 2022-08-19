@@ -3,6 +3,7 @@
     <string name="app_name">RecipeSearch</string>
     <string name="products">Products</string>
     <string name="recipes">Recipes</string>
+    <string name="empty" />
 
     <string-array name="ingredients">
         <item>5 spice powder</item>
