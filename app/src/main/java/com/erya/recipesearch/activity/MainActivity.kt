@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.erya.recipesearch.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.project.giniatovia.presentation.fragments.FridgeFragment
-import com.project.giniatovia.presentation.fragments.RecipeFragment
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

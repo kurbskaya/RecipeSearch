@@ -1,4 +1,4 @@
-package com.project.giniatovia.presentation.models
+package com.project.giniatovia.feature_fridge.presentation.models
 
 data class Product (
     val id: String? = "",

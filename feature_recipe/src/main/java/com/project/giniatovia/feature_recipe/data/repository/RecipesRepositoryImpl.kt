@@ -2,7 +2,7 @@ package com.project.giniatovia.data.repository
 
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.domain.models.RecipesList
-import com.project.giniatovia.domain.repository.RecipesRepository
+import com.project.giniatovia.feature_recipe.domain.repository.RecipesRepository
 import io.reactivex.rxjava3.core.Single
 
 
@@ -12,5 +12,9 @@ class RecipesRepositoryImpl(
 
     override fun getRandomRecipe(): Single<RecipesList> {
         return dataSource.getRandomRecipe()
+    }
+
+    override fun getRecipeByIngredients(query: String): Single<RecipesList> {
+        return dataSource.getRecipeByIngredients(query)
     }
 }
