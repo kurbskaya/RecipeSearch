@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#3A6E39">
+    android:layout_height="match_parent">
 
     <AutoCompleteTextView
-        android:id="@+id/autocomplete"
+        android:id="@+id/autoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_margin="20dp"
+        android:textColor="#919191"
+        android:dropDownVerticalOffset="20dp"
+        android:background="@drawable/autocomplete_background"
+        android:ems="10"
+        android:fontFamily="@font/roboto_regular"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerProduct"
+        android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/autocomplete"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/product_item_layout" />
+        android:layout_below="@+id/autoCompleteTextView"
+        tools:listitem="@layout/item_product" />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/main_btn"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/main_button_background" />
+</RelativeLayout>
 

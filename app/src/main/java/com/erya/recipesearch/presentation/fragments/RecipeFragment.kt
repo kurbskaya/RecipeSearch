@@ -1,4 +1,4 @@
-package com.erya.recipesearch.activity
+package com.erya.recipesearch.presentation.fragments
 
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.erya.recipesearch.data.repository.PageRepositoryImpl
+import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.R
@@ -49,7 +51,8 @@ class RecipeFragment : Fragment() {
                         RecipesResponseMapper()
                     )
                 ),
-                ProductRepositoryImpl(requireContext())
+                ProductRepositoryImpl(requireContext()),
+                PageRepositoryImpl()
             )
         ).get(RecipeViewModel::class.java)
         viewModel.getRandomRecipe()
