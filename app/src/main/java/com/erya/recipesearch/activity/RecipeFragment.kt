@@ -82,7 +82,6 @@ class RecipeFragment : Fragment() {
     }
 
     companion object {
-        @JvmStatic
         fun newInstance(products: Array<String>? = null) =
             RecipeFragment().apply {
                 arguments = Bundle().apply {
