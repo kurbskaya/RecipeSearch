@@ -32,8 +32,6 @@ class FridgeFragment : Fragment() {
 
     private lateinit var viewModel: ProductViewModel
 
-    val prl = listOf( "Апельсин", "Ананас","Абрикос")
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,33 +66,28 @@ class FridgeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val autoCompleteAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.item_search_product,
-            R.id.nameProduct,
-            prl
-        )
-        val autoCompleteWidget = binding.autoCompleteTextView
-        autoCompleteWidget.threshold = 1
-        autoCompleteWidget.setAdapter(autoCompleteAdapter)
-        autoCompleteWidget.setTextColor(Color.BLACK)
-        autoCompleteWidget.setOnItemClickListener{ _, _, _, _ ->
-            viewModel.add(
-                // TODO:  во вью модели сформировать продукт с картинкой!!!
-                Product(
-                    "123",
-                    autoCompleteWidget.editableText.toString(),
-                    "141kkal"
-                )
+        val lifecycleOwner = viewLifecycleOwner
+        viewModel.allProductLiveData.observe(lifecycleOwner) {allProductList: List<String> ->
+            val autoCompleteAdapter = ArrayAdapter(
+                requireContext(),
+                R.layout.item_search_product,
+                R.id.nameProduct,
+                allProductList
             )
-            autoCompleteWidget.setText(R.string.empty)
+            val autoCompleteWidget = binding.autoCompleteTextView
+            autoCompleteWidget.threshold = 1
+            autoCompleteWidget.setAdapter(autoCompleteAdapter)
+            autoCompleteWidget.setTextColor(Color.BLACK)
+            autoCompleteWidget.setOnItemClickListener{ _, _, _, _ ->
+                viewModel.add(autoCompleteWidget.editableText.toString())
+                autoCompleteWidget.setText(R.string.empty)
 
-            val context = context
-            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            imm?.hideSoftInputFromWindow(autoCompleteWidget.windowToken, 0)
+                val context = context
+                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(autoCompleteWidget.windowToken, 0)
+            }
         }
 
-        val lifecycleOwner = viewLifecycleOwner
         viewModel.productLiveData.observe(lifecycleOwner) { productList: List<Product> ->
             val productAdapter = binding.rv.adapter
             if (productAdapter == null) {

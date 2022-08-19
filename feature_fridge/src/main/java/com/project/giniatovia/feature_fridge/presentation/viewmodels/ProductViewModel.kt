@@ -15,31 +15,36 @@ class ProductViewModel(
     private val _productLiveData = MutableLiveData<List<Product>>()
     val productLiveData: LiveData<List<Product>> = _productLiveData
 
+    private val _allProductLiveData = MutableLiveData<List<String>>()
+    val allProductLiveData: LiveData<List<String>> = _allProductLiveData
+
     fun getAllProducts() {
         val disposable = repository.getAllProducts().subscribe({ parsedResult ->
-            _productLiveData.postValue(parsedResult.map { name ->
-                Product(name = name, image = IMAGE_URL + name.lowercase().replace(" ", "-") + FORMAT)
-            })
+            _allProductLiveData.postValue(parsedResult)
         }, {
             it.toString()
         })
         compositeDisposable.add(disposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
-
-    fun add(product: Product) {
+    fun add(strProduct: String) {
         val oldList = _productLiveData.value
+        val newProduct = Product(
+            name = strProduct,
+            image = IMAGE_URL + strProduct.lowercase().replace(" ", "-") + FORMAT
+        )
         if (oldList == null){
-            _productLiveData.value = arrayListOf(product)
+            _productLiveData.value = arrayListOf(newProduct)
             return
         }
         val tmp = ArrayList<Product>(oldList)
-        tmp.add(product)
+        tmp.add(newProduct)
         _productLiveData.value = tmp
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 
     companion object {
