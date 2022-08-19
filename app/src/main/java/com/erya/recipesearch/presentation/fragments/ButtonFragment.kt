@@ -1,4 +1,4 @@
-package com.erya.recipesearch.fragments
+package com.erya.recipesearch.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

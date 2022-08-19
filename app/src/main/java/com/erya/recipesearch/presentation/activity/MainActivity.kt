@@ -1,11 +1,11 @@
-package com.erya.recipesearch.activity
+package com.erya.recipesearch.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.erya.recipesearch.R
 import com.erya.recipesearch.databinding.ActivityMainBinding
-import com.erya.recipesearch.fragments.ButtonFragment
-import com.erya.recipesearch.fragments.OnboardingDialogFragment
+import com.erya.recipesearch.presentation.fragments.ButtonFragment
+import com.erya.recipesearch.presentation.fragments.OnboardingDialogFragment
 import com.project.giniatovia.core.shared.SharedPreferencesKeys
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, ButtonFragment())
-            .addToBackStack(null)
             .commit()
 
         setContentView(R.layout.activity_main)
