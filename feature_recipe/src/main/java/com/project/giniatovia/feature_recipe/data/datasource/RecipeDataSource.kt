@@ -12,4 +12,8 @@ class RecipeDataSource(
     fun getRandomRecipe(): Single<RecipesList> {
         return api.getRandomRecipe().map { data -> mapper.map(data) }
     }
+
+    fun getRecipeByIngredients(query: String): Single<RecipesList> {
+        return api.getRecipeByIngredients(query).map { data -> mapper.map(data) }
+    }
 }

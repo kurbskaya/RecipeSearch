@@ -1,4 +1,4 @@
-package com.project.giniatovia.presentation.fragments
+package com.erya.recipesearch.activity
 
 import android.os.Build
 import android.os.Bundle
@@ -12,12 +12,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.data.repository.RecipesRepositoryImpl
+import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.R
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
 import com.project.giniatovia.feature_recipe.databinding.FragmentRecipeBinding
-import com.project.giniatovia.presentation.viewmodels.RecipeViewModel
-import com.project.giniatovia.presentation.viewmodels.ViewModelFactory
+import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
 
 class RecipeFragment : Fragment() {
@@ -48,7 +48,8 @@ class RecipeFragment : Fragment() {
                         ).recipesService(),
                         RecipesResponseMapper()
                     )
-                )
+                ),
+                ProductRepositoryImpl(requireContext())
             )
         ).get(RecipeViewModel::class.java)
         viewModel.getRandomRecipe()
@@ -57,6 +58,8 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = arguments?.getStringArray("PRODUCT")
+        if (args != null) viewModel.getRecipeByIngredients(args)
         viewModel.recipeLiveData.observe(viewLifecycleOwner) { recipe ->
             binding.recipeTitle.text = recipe.title
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -76,5 +79,15 @@ class RecipeFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(products: Array<String>? = null) =
+            RecipeFragment().apply {
+                arguments = Bundle().apply {
+                    putStringArray("PRODUCT", products)
+                }
+            }
     }
 }
