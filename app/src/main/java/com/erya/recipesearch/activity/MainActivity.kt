@@ -2,40 +2,38 @@ package com.erya.recipesearch.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.erya.recipesearch.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.project.giniatovia.presentation.fragments.FridgeFragment
-import com.project.giniatovia.presentation.fragments.RecipeFragment
+import com.erya.recipesearch.databinding.ActivityMainBinding
+import com.erya.recipesearch.fragments.ButtonFragment
+import com.erya.recipesearch.fragments.OnboardingDialogFragment
+import com.project.giniatovia.core.shared.SharedPreferencesKeys
 
 class MainActivity : AppCompatActivity() {
+
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-        setBottomNavListener(bottomNavigationView)
-    }
+        val prefs = getSharedPreferences(SharedPreferencesKeys.PREFS_FILE, MODE_PRIVATE)
+        val isFirstLaunch = prefs.getBoolean(SharedPreferencesKeys.FIRST_LAUNCH, true)
 
-    private fun setBottomNavListener(bottomNavigationView: BottomNavigationView) {
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.page_fridge -> {
-                    loadFragment(FridgeFragment())
-                    true
-                }
-                R.id.page_recipes -> {
-                    loadFragment(RecipeFragment())
-                    true
-                }
-                else -> false
-            }
-        }
-    }
+        //if (isFirstLaunch) {
+//            val prefEditor = prefs.edit()
+//            prefEditor.putBoolean(SharedPreferencesKeys.FIRST_LAUNCH, false)
+//            prefEditor.apply()
 
-    fun loadFragment(fragment: Fragment) {
+            OnboardingDialogFragment().show(supportFragmentManager, "onboarding")
+    //}
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, ButtonFragment())
+            .addToBackStack(null)
             .commit()
+
+        setContentView(R.layout.activity_main)
     }
+
 }
