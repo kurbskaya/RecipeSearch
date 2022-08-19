@@ -10,17 +10,23 @@ import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.databinding.OnboardingDialogBinding
 import com.erya.recipesearch.presentation.adapters.OnboardingAdapter
 import com.erya.recipesearch.models.Page
-import com.erya.recipesearch.presentation.viewmodels.OmboardingViewModel
-import com.erya.recipesearch.presentation.viewmodels.OnboardingViewModelFactory
+import com.erya.recipesearch.presentation.viewmodels.OnboardingViewModel
+import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.project.giniatovia.core.network.implementation.*
+import com.project.giniatovia.data.repository.RecipesRepositoryImpl
+import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
+import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
+import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
+import okhttp3.logging.HttpLoggingInterceptor
 
 class OnboardingDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: OnboardingDialogBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel : OmboardingViewModel
+    private lateinit var viewModel : OnboardingViewModel
 
     override fun getTheme() = R.style.AppBottomSheetDialogThemeOnboarding
 
@@ -32,10 +38,25 @@ class OnboardingDialogFragment : BottomSheetDialogFragment() {
         _binding = OnboardingDialogBinding.inflate(inflater, container,false)
         viewModel = ViewModelProvider(
             requireActivity(),
-            OnboardingViewModelFactory(
+            ViewModelFactory(
+                RecipesRepositoryImpl(
+                    RecipeDataSource(
+                        RecipeApiImpl(
+                            RetrofitImpl(
+                                ConverterFactoryImpl(), OkHttpClientImpl(
+                                    InterceptorImpl(
+                                        HttpLoggingInterceptor.Level.BODY
+                                    )
+                                )
+                            )
+                        ).recipesService(),
+                        RecipesResponseMapper()
+                    )
+                ),
+                ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
             )
-        ).get(OmboardingViewModel::class.java)
+        ).get(OnboardingViewModel::class.java)
 
         return binding.root
     }

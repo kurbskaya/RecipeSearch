@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.erya.recipesearch.models.Page
 import com.erya.recipesearch.models.PageRepository
 
-class OmboardingViewModel(
+class OnboardingViewModel(
     private val repository: PageRepository
 ) : ViewModel() {
     private val _pageLiveData = MutableLiveData<ArrayList<Page>>()

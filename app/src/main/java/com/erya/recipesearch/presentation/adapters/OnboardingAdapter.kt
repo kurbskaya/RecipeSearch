@@ -37,7 +37,6 @@ class OnboardingAdapter(private val pageList: ArrayList<Page>) : RecyclerView.Ad
             binding.tvIntroSubTitle.text = item.description
             binding.imgIntro.setAnimation(item.lottie)
             binding.imgIntro.repeatCount = LottieDrawable.INFINITE
-            //binding.imgIntro.playAnimation()
         }
 
     }
