@@ -1,15 +1,16 @@
-package com.project.giniatovia.presentation
+package com.project.giniatovia.feature_fridge.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import com.erya.recipesearch.ProductClickListener
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.project.giniatovia.feature_fridge.databinding.ProductItemLayoutBinding
-import com.project.giniatovia.feature_fridge.presentation.ProductViewHolder
-import com.project.giniatovia.presentation.models.Product
+import com.project.giniatovia.feature_recipe.presentation.models.Product
 
-class ProductAdapter(private val deleteClickListener: ProductClickListener)
-    : ListAdapter<Product, ProductViewHolder>(ProductDiffCallback()) {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+    private var ingredients = mutableListOf<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = ProductItemLayoutBinding.inflate(
@@ -21,10 +22,31 @@ class ProductAdapter(private val deleteClickListener: ProductClickListener)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.binding.closeImage.setOnClickListener{
-            deleteClickListener.onDeleteClick(position)
-        }
-        holder.bind(getItem(position))
+        holder.bind(ingredients[position])
     }
 
+    fun getAllIngredients() = ingredients
+
+    override fun getItemCount() = ingredients.size
+
+    fun updateList(newTasks: List<Product>) {
+        val tasksDiffUtilCallback = ProductDiffCallback(ingredients, newTasks)
+        val tasksDiffResult = DiffUtil.calculateDiff(tasksDiffUtilCallback)
+        ingredients = newTasks.toMutableList()
+        tasksDiffResult.dispatchUpdatesTo(this)
+    }
+
+    fun addToEnd(product: Product) {
+        ingredients.add(product)
+        notifyItemInserted(itemCount)
+    }
+
+    class ProductViewHolder(
+        private val binding: ProductItemLayoutBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(product: Product){
+            binding.name.text = product.name
+        }
+    }
 }
