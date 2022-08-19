@@ -36,10 +36,10 @@ class ButtonFragment : Fragment() {
 
 
         binding.secondaryBtn.setOnClickListener{
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, FavRecipesFragment())
-//                .addToBackStack(null)
-//                .commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, RecipeListFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 

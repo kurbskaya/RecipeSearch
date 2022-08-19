@@ -18,7 +18,7 @@ import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
 import com.project.giniatovia.feature_recipe.databinding.FragmentListRecipeBinding
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipeClickListener
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipesAdapter
-import com.project.giniatovia.feature_recipe.presentation.fragments.RecipeBottomSheetDialogFragment
+import com.project.giniatovia.feature_recipe.presentation.fragments.RecipeDialogFragment
 import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -75,7 +75,7 @@ class RecipeListFragment : Fragment() {
             if (productAdapter == null) {
                 val myAdapter = RecipesAdapter(RecipeClickListener { item ->
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, RecipeBottomSheetDialogFragment())
+                        .replace(R.id.fragment_container, RecipeDialogFragment())
                         .addToBackStack(null)
                         .commit()
                 })

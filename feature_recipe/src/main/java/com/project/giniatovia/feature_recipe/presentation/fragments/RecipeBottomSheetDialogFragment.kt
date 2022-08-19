@@ -4,39 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.project.giniatovia.feature_recipe.databinding.RecipeDialogBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.project.giniatovia.feature_recipe.R
+import com.project.giniatovia.feature_recipe.databinding.RecipeBottomSheetBinding
 
-class RecipeBottomSheetDialogFragment : Fragment() {
+class RecipeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
-    private var _binding: RecipeDialogBinding? = null
-    private val binding get() = _binding!!
+    lateinit var binding: RecipeBottomSheetBinding
 
+    override fun getTheme() = R.style.AppBottomSheetDialogTheme1
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = RecipeDialogBinding.inflate(inflater, container, false)
-        val bottomSheetDialogFragment = RecipeDialogFragment()
-        bottomSheetDialogFragment.setCancelable(false)
-        bottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "tag1")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
 
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = RecipeBottomSheetBinding.inflate(inflater, container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+    }
+    override fun onStart() {
+        super.onStart()
 
     }
 
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
 }
