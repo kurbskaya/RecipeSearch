@@ -1,4 +1,4 @@
-package com.erya.recipesearch.activity
+package com.erya.recipesearch.presentation.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.erya.recipesearch.data.repository.PageRepositoryImpl
+import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.R
@@ -50,7 +52,8 @@ class FridgeFragment : Fragment() {
                         RecipesResponseMapper()
                     )
                 ),
-                ProductRepositoryImpl(requireContext())
+                ProductRepositoryImpl(requireContext()),
+                PageRepositoryImpl()
             )
         ).get(ProductViewModel::class.java)
         viewModel.getAllProducts()
