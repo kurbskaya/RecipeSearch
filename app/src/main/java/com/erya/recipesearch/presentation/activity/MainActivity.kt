@@ -16,23 +16,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_main)
 
         val prefs = getSharedPreferences(SharedPreferencesKeys.PREFS_FILE, MODE_PRIVATE)
         val isFirstLaunch = prefs.getBoolean(SharedPreferencesKeys.FIRST_LAUNCH, true)
 
-        //if (isFirstLaunch) {
-//            val prefEditor = prefs.edit()
-//            prefEditor.putBoolean(SharedPreferencesKeys.FIRST_LAUNCH, false)
-//            prefEditor.apply()
+        if (isFirstLaunch) {
+            val prefEditor = prefs.edit()
+            prefEditor.putBoolean(SharedPreferencesKeys.FIRST_LAUNCH, false)
+            prefEditor.apply()
 
             OnboardingDialogFragment().show(supportFragmentManager, "onboarding")
-    //}
+        }
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, ButtonFragment())
             .commit()
-
-        setContentView(R.layout.activity_main)
     }
 
 }
