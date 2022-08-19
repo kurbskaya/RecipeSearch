@@ -109,10 +109,10 @@ class FridgeFragment : Fragment() {
 
         }
         binding.mainBtn.setOnClickListener{
-//            requireActivity().supportFragmentManager.beginTransaction()
-//                .replace(R.id.fragment_container, RecipeFragment())
-//                .addToBackStack(null)
-//                .commit()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, RecipeListFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
