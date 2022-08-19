@@ -2,13 +2,12 @@ package com.project.giniatovia.feature_fridge.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.project.giniatovia.feature_fridge.databinding.ItemProductBinding
-import com.project.giniatovia.feature_fridge.presentation.models.Product
+import com.project.giniatovia.core.network.models.Product
 
 class ProductAdapter : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 

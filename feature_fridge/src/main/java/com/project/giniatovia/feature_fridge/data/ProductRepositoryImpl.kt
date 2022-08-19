@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ProductRepositoryImpl(private val context: Context) : ProductRepository {
-    override fun getAllProducts(): Single<Map<String,Int>> = Single
+    override fun getAllProducts(): Single<List<String>> = Single
         .fromCallable { CSVParser(context, "ingredients.csv").parse() }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

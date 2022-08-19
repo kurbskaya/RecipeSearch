@@ -15,8 +15,7 @@ class SearchProductFragment : Fragment() {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    val countries = listOf<String>( "Помидор", "Картоха", "Апельсинка", "Пэрсик")
-
+    val countries = listOf( "Помидор", "Картоха", "Апельсинка", "Пэрсик")
 
     override fun onCreateView(
         inflater: LayoutInflater,
