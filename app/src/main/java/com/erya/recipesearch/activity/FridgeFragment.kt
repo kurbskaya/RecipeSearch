@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.project.giniatovia.core.network.implementation.*
-import com.project.giniatovia.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.R
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_fridge.databinding.FragmentFridgeBinding
@@ -16,6 +15,7 @@ import com.project.giniatovia.feature_fridge.presentation.ProductAdapter
 import com.project.giniatovia.feature_fridge.presentation.viewmodels.ProductViewModel
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
+import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import okhttp3.logging.HttpLoggingInterceptor
 
 class FridgeFragment : Fragment() {
@@ -64,7 +64,7 @@ class FridgeFragment : Fragment() {
         binding.recyclerProduct.adapter = productAdapter
 
         viewModel.productLiveData.observe(viewLifecycleOwner) {
-            Log.d("TAG", it.entries.take(10).toString())
+            Log.d("TAG", it.toString())
         }
 
         binding.fab.setOnClickListener {

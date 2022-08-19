@@ -1,7 +1,7 @@
 package com.project.giniatovia.feature_fridge.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.project.giniatovia.feature_recipe.presentation.models.Product
+import com.project.giniatovia.core.network.models.Product
 
 class ProductDiffCallback(
     private val oldList: List<Product>,

@@ -1,4 +1,4 @@
-package com.project.giniatovia.data.repository
+package com.project.giniatovia.feature_recipe.data.repository
 
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.domain.models.RecipesList

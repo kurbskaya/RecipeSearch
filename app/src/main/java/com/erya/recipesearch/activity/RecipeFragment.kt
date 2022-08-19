@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.project.giniatovia.core.network.implementation.*
-import com.project.giniatovia.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.R
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
+import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_recipe.databinding.FragmentRecipeBinding
 import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
