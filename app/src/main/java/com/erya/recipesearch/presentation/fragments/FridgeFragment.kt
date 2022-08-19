@@ -67,7 +67,7 @@ class FridgeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val lifecycleOwner = viewLifecycleOwner
-        viewModel.allProductLiveData.observe(lifecycleOwner) {allProductList: List<String> ->
+        viewModel.allProductLiveData.observe(lifecycleOwner) { allProductList: List<String> ->
             val autoCompleteAdapter = ArrayAdapter(
                 requireContext(),
                 R.layout.item_search_product,

@@ -27,7 +27,7 @@ class RecipeListFragment : Fragment() {
     private var _binding: FragmentListRecipeBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var viewModel : RecipeViewModel
+    lateinit var viewModel: RecipeViewModel
 
     // TODO: убрать 
     val ingridients = arrayOf("potato")
@@ -38,7 +38,7 @@ class RecipeListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListRecipeBinding.inflate(inflater, container,false)
+        _binding = FragmentListRecipeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(
             requireActivity(),
             ViewModelFactory(
@@ -69,7 +69,7 @@ class RecipeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val lifecycleOwner = viewLifecycleOwner
-        
+
         viewModel.recipeLiveData.observe(lifecycleOwner) { recipeList: List<String> ->
             val productAdapter = binding.rvRecipe.adapter
             if (productAdapter == null) {
