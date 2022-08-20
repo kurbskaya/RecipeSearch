@@ -37,7 +37,9 @@ class ButtonFragment : Fragment() {
 
         binding.secondaryBtn.setOnClickListener{
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RecipeListFragment())
+                // TODO: use RepiceListFragment
+                //.replace(R.id.fragment_container, RecipeListFragment())
+                .replace(R.id.fragment_container, FavRecipesFragment())
                 .addToBackStack(null)
                 .commit()
         }

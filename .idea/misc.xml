@@ -37,6 +37,7 @@
         <entry key="app/src/main/res/drawable/selected_dot.xml" value="0.188" />
         <entry key="app/src/main/res/drawable/tab_pager_selector.xml" value="0.188" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
+        <entry key="app/src/main/res/layout/activity_new_recipe.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/button_fragment.xml" value="0.2078125" />
         <entry key="app/src/main/res/layout/fragment_fridge.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_recipe.xml" value="0.19166666666666668" />
