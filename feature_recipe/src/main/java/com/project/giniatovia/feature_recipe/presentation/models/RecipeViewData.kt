@@ -1,6 +1,9 @@
-package com.project.giniatovia.domain.models
+package com.project.giniatovia.feature_recipe.presentation.models
 
-data class Recipe(
+import com.project.giniatovia.feature_recipe.domain.models.AnalyzedInstructions
+import com.project.giniatovia.feature_recipe.domain.models.ExtendedIngredients
+
+class RecipeViewData(
     val extendedIngredients: List<ExtendedIngredients> = listOf(),
     val id: Int? = null,
     val title: String? = null,

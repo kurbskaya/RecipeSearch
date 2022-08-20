@@ -11,14 +11,13 @@ import com.erya.recipesearch.R
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.project.giniatovia.core.network.implementation.*
-import com.project.giniatovia.data.repository.RecipesRepositoryImpl
+import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
-import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
 import com.project.giniatovia.feature_recipe.databinding.FragmentListRecipeBinding
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipeClickListener
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipesAdapter
-import com.project.giniatovia.feature_recipe.presentation.fragments.RecipeDialogFragment
+import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
 import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -28,10 +27,6 @@ class RecipeListFragment : Fragment() {
     private val binding get() = _binding!!
 
     lateinit var viewModel: RecipeViewModel
-
-    // TODO: убрать 
-    val ingridients = arrayOf("potato")
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,15 +48,13 @@ class RecipeListFragment : Fragment() {
                                 )
                             )
                         ).recipesService(),
-                        RecipesResponseMapper()
                     )
                 ),
                 ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
             )
         ).get(RecipeViewModel::class.java)
-        // TODO: прокинуть ингридиенты
-        viewModel.create()
+        viewModel.getRecipeByIngredients(listOf("apple"))
         return binding.root
     }
 
@@ -70,12 +63,13 @@ class RecipeListFragment : Fragment() {
 
         val lifecycleOwner = viewLifecycleOwner
 
-        viewModel.recipeLiveData.observe(lifecycleOwner) { recipeList: List<String> ->
+        viewModel.recipeLiveData.observe(lifecycleOwner) { recipeList: List<RecipeViewData> ->
             val productAdapter = binding.rvRecipe.adapter
             if (productAdapter == null) {
                 val myAdapter = RecipesAdapter(RecipeClickListener { item ->
+                    val fragment = RecipeDialogFragment.newInstance(item.id!!)
                     requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, RecipeDialogFragment())
+                        .replace(R.id.fragment_container, fragment)
                         .addToBackStack(null)
                         .commit()
                 })

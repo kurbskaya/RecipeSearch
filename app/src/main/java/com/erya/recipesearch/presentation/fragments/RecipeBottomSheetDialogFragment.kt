@@ -1,4 +1,4 @@
-package com.project.giniatovia.feature_recipe.presentation.fragments
+package com.erya.recipesearch.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

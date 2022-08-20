@@ -4,37 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.erya.recipesearch.R
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
-import com.erya.recipesearch.databinding.OnboardingDialogBinding
-import com.erya.recipesearch.presentation.adapters.OnboardingAdapter
-import com.erya.recipesearch.models.Page
-import com.erya.recipesearch.presentation.viewmodels.OnboardingViewModel
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.tabs.TabLayoutMediator
 import com.project.giniatovia.core.network.implementation.*
-import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
+import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
+import com.project.giniatovia.feature_recipe.databinding.RecipeDialogBinding
+import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
 
-class OnboardingDialogFragment : BottomSheetDialogFragment() {
+class RecipeDialogFragment : Fragment() {
 
-    private var _binding: OnboardingDialogBinding? = null
+    private var _binding: RecipeDialogBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel : OnboardingViewModel
-
-    override fun getTheme() = R.style.AppBottomSheetDialogThemeOnboarding
+    private lateinit var viewModel: RecipeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = OnboardingDialogBinding.inflate(inflater, container,false)
         viewModel = ViewModelProvider(
             requireActivity(),
             ViewModelFactory(
@@ -54,24 +44,39 @@ class OnboardingDialogFragment : BottomSheetDialogFragment() {
                 ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
             )
-        ).get(OnboardingViewModel::class.java)
+        ).get(RecipeViewModel::class.java)
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = RecipeDialogBinding.inflate(inflater, container, false)
+        val bottomSheetDialogFragment = RecipeBottomSheetDialogFragment()
+        bottomSheetDialogFragment.setCancelable(false)
+        bottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "tag1")
+        val args = arguments?.getInt("ID")
+        if (args != null) viewModel.getRecipeInfoById(args)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.recipeInfoLiveData.observe(viewLifecycleOwner) {
+            // TODO: Показать информацию по выбранному рецепту
+        }
+    }
 
-        val lifecycleOwner = viewLifecycleOwner
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 
-        viewModel.init()
-
-        viewModel.pageLiveData.observe(lifecycleOwner) { pageList: ArrayList<Page> ->
-
-            binding.apply {
-                introViewPager.adapter = OnboardingAdapter(pageList)
-                TabLayoutMediator(intoTabLayout, introViewPager) { _, _ -> }.attach()
-                btn.setOnClickListener { dismiss() }
+    companion object {
+        fun newInstance(args: Int) = RecipeDialogFragment().apply {
+            arguments = Bundle().apply {
+                putInt("ID", args)
             }
         }
     }

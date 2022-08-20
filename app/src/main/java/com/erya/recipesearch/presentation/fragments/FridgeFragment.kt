@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.project.giniatovia.core.network.implementation.*
-import com.project.giniatovia.data.repository.RecipesRepositoryImpl
+import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.R
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_fridge.databinding.FragmentFridgeBinding
@@ -22,7 +22,6 @@ import com.project.giniatovia.feature_fridge.presentation.ProductAdapter
 import com.project.giniatovia.core.network.models.Product
 import com.project.giniatovia.feature_fridge.presentation.viewmodels.ProductViewModel
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
-import com.project.giniatovia.feature_recipe.data.mapper.RecipesResponseMapper
 import okhttp3.logging.HttpLoggingInterceptor
 
 class FridgeFragment : Fragment() {
@@ -52,7 +51,6 @@ class FridgeFragment : Fragment() {
                                 )
                             )
                         ).recipesService(),
-                        RecipesResponseMapper()
                     )
                 ),
                 ProductRepositoryImpl(requireContext()),

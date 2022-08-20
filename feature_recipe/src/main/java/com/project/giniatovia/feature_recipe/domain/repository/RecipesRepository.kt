@@ -1,10 +1,11 @@
 package com.project.giniatovia.feature_recipe.domain.repository
 
-import com.project.giniatovia.domain.models.RecipesList
-import io.reactivex.rxjava3.core.Single
-
+import com.project.giniatovia.feature_recipe.domain.models.RecipeDomain
+import com.project.giniatovia.feature_recipe.domain.models.RecipeInstructionDomain
+import com.project.giniatovia.feature_recipe.domain.models.RecipesListDomain
 
 interface RecipesRepository {
-    fun getRandomRecipe(): Single<RecipesList>
-    fun getRecipeByIngredients(query: String): Single<RecipesList>
+    suspend fun getRandomRecipe(): RecipesListDomain
+    suspend fun getRecipeByIngredients(query: String): List<RecipeDomain>
+    suspend fun getRecipeInfoById(id: Int): RecipeInstructionDomain
 }

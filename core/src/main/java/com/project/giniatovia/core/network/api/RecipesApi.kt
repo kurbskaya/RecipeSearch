@@ -1,16 +1,18 @@
 package com.project.giniatovia.core.network.api
 
-import com.project.giniatovia.core.network.models.ExtendedIngredients
-import com.project.giniatovia.core.network.models.RecipesList
-import io.reactivex.rxjava3.core.Single
+import com.project.giniatovia.core.network.models.RecipeCore
+import com.project.giniatovia.core.network.models.RecipesListCore
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipesApi {
     @GET("recipes/random")
-    fun getRandomRecipe() : Single<RecipesList>
+    suspend fun getRandomRecipe() : RecipesListCore
 
     @GET("recipes/findByIngredients")
-    fun getRecipeByIngredients(@Query("ingredients") ingredients: String) : Single<RecipesList>
+    suspend fun getRecipeByIngredients(@Query("ingredients") ingredients: String) : List<RecipeCore>
+
+    @GET("recipes/{id}/information")
+    suspend fun getRecipeInfoByIdData(@Path("id") id: Int) : RecipeCore
 }
