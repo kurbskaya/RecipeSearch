@@ -2,7 +2,7 @@ package com.project.giniatovia.core.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Recipe(
+data class RecipeCore(
     @SerializedName("extendedIngredients") val extendedIngredients: List<ExtendedIngredients> = listOf(),
     @SerializedName("id") val id: Int? = null,
     @SerializedName("title") val title: String? = null,

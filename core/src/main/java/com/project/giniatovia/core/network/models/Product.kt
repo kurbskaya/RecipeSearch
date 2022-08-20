@@ -1,8 +1,10 @@
 package com.project.giniatovia.core.network.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Product (
-    val id: String? = "",
-    val name: String = "",
-    val energy: String = "",
-    val image: String = "",
+    @SerializedName("id") val id: String? = "",
+    @SerializedName("name") val name: String = "",
+    @SerializedName("energy") val energy: String = "",
+    @SerializedName("image") val image: String = "",
 )
