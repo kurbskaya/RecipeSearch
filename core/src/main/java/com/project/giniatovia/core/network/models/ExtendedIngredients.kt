@@ -1,7 +1,9 @@
 package com.project.giniatovia.core.network.models
 
+import com.google.gson.annotations.SerializedName
+
 data class ExtendedIngredients(
-    val id: Int? = null,
-    val image: String? = null,
-    val name: String? = null,
+    @SerializedName("id") val id: Int? = null,
+    @SerializedName("image") val image: String? = null,
+    @SerializedName("name") val name: String? = null,
 )

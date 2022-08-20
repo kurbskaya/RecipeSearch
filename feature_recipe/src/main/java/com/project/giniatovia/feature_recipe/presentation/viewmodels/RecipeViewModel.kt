@@ -5,7 +5,6 @@ import com.project.giniatovia.feature_recipe.domain.repository.RecipesRepository
 import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeInfoViewData
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(
@@ -25,7 +24,7 @@ class RecipeViewModel(
 //    }
 
     fun getRecipeInfoById(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _recipeInfoLiveData.postValue(
                 ViewDataMapper.mapRecipeInfoToViewData(
                     repository.getRecipeInfoById(id)
@@ -35,7 +34,7 @@ class RecipeViewModel(
     }
 
     fun getRecipeByIngredients(ingredients: List<String>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _recipeLiveData.postValue(
                 ViewDataMapper.mapRecipeToViewData(
                     repository.getRecipeByIngredients(ingredients.joinToString(","))
