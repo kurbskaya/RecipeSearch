@@ -14,12 +14,6 @@ class RecipeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun getTheme() = R.style.AppBottomSheetDialogTheme1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = RecipeBottomSheetBinding.inflate(inflater, container,false)
         return binding.root
@@ -27,10 +21,18 @@ class RecipeBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-    override fun onStart() {
-        super.onStart()
 
+        val args = arguments?.getString(RECIPE_INSTRUCTIONS)
+        binding.recipeInstructionsTv.text = args
     }
 
+    companion object {
+        private const val RECIPE_INSTRUCTIONS = "recipe_instructions"
+
+        fun newInstance(args: String) = RecipeBottomSheetDialogFragment().apply {
+            arguments = Bundle().apply {
+                putString(RECIPE_INSTRUCTIONS, args)
+            }
+        }
+    }
 }

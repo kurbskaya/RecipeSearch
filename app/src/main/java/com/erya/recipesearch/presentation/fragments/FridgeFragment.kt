@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
+import com.erya.recipesearch.RecipesApplication
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.R
@@ -51,7 +52,8 @@ class FridgeFragment : Fragment() {
                                 )
                             )
                         ).recipesService(),
-                    )
+                    ),
+                    (requireActivity().application as RecipesApplication).database.recipeDao()
                 ),
                 ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
@@ -101,7 +103,9 @@ class FridgeFragment : Fragment() {
         }
         binding.mainBtn.setOnClickListener{
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RecipeListFragment())
+                .replace(R.id.fragment_container, RecipeListFragment.newInstance(
+                    makeList(viewModel.productLiveData.value))
+                )
                 .addToBackStack(null)
                 .commit()
         }
@@ -110,5 +114,11 @@ class FridgeFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun makeList(value: List<Product>?): ArrayList<String> {
+        val usedProductsStrings = arrayListOf<String>()
+        value?.map { usedProduct -> usedProductsStrings.add(usedProduct.name) }
+        return usedProductsStrings
     }
 }

@@ -1,5 +1,6 @@
 package com.project.giniatovia.feature_recipe.presentation
 
+import com.project.giniatovia.core.db.models.RecipeEntity
 import com.project.giniatovia.feature_recipe.domain.models.ExtendedIngredients
 import com.project.giniatovia.feature_recipe.domain.models.RecipeDomain
 import com.project.giniatovia.feature_recipe.domain.models.RecipeInstructionDomain
@@ -38,4 +39,22 @@ object ViewDataMapper {
             analyzedInstructions = instructionsBySteps
         )
     }
+
+    fun mapRecipeEntityToViewData(recipe: RecipeEntity) =
+        RecipeViewData(
+            id = recipe.id,
+            title = recipe.title,
+            image = recipe.image,
+            summary = recipe.summary,
+            instructions = recipe.instructions
+        )
+
+    fun mapInfoViewDataToRecipeEntity(recipe: RecipeInfoViewData): RecipeEntity =
+        RecipeEntity(
+            id = recipe.id ?: 0,
+            title = recipe.title,
+            image = recipe.image,
+            summary = recipe.summary,
+            instructions = recipe.instructions
+        )
 }

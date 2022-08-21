@@ -23,7 +23,7 @@ class RecipesAdapter(private val recipeClickListener: RecipeClickListener)
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         val id = getItem(position)
         holder.itemView.setOnClickListener{
-            recipeClickListener.recipeClick(id)
+            recipeClickListener.onRecipeClick(id)
         }
         holder.bind(getItem(position))
     }
