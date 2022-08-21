@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
+import com.erya.recipesearch.RecipesApplication
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
@@ -39,7 +41,8 @@ class RecipeDialogFragment : Fragment() {
                                 )
                             )
                         ).recipesService(),
-                    )
+                    ),
+                    (requireActivity().application as RecipesApplication).database.recipeDao()
                 ),
                 ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
@@ -53,10 +56,7 @@ class RecipeDialogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = RecipeDialogBinding.inflate(inflater, container, false)
-        val bottomSheetDialogFragment = RecipeBottomSheetDialogFragment()
-        bottomSheetDialogFragment.setCancelable(false)
-        bottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "tag1")
-        val args = arguments?.getInt("ID")
+        val args = arguments?.getInt(ID_RECIPE)
         if (args != null) viewModel.getRecipeInfoById(args)
         return binding.root
     }
@@ -64,7 +64,18 @@ class RecipeDialogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.recipeInfoLiveData.observe(viewLifecycleOwner) {
-            // TODO: Показать информацию по выбранному рецепту
+            Glide.with(binding.recipeDialogImg.context)
+                .load(it.image)
+                .circleCrop()
+                .into(binding.recipeDialogImg)
+
+            val bottomSheetDialogFragment = RecipeBottomSheetDialogFragment.newInstance(it.summary!!)
+            //bottomSheetDialogFragment.setCancelable(false)
+            bottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "tag1")
+        }
+
+        binding.buttonTest.setOnClickListener{
+            viewModel.recipeInfoLiveData.value?.let { it1 -> viewModel.insertRecipeDb(it1) }
         }
     }
 
@@ -74,9 +85,11 @@ class RecipeDialogFragment : Fragment() {
     }
 
     companion object {
+        private const val ID_RECIPE = "id_recipe"
+
         fun newInstance(args: Int) = RecipeDialogFragment().apply {
             arguments = Bundle().apply {
-                putInt("ID", args)
+                putInt(ID_RECIPE, args)
             }
         }
     }

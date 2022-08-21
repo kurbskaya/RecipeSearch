@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.erya.recipesearch.R
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
+import com.erya.recipesearch.RecipesApplication
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
@@ -48,13 +49,21 @@ class RecipeListFragment : Fragment() {
                                 )
                             )
                         ).recipesService(),
-                    )
+                    ),
+                    (requireActivity().application as RecipesApplication).database.recipeDao()
                 ),
                 ProductRepositoryImpl(requireContext()),
                 PageRepositoryImpl()
             )
         ).get(RecipeViewModel::class.java)
-        viewModel.getRecipeByIngredients(listOf("apple"))
+
+        val args = arguments?.getStringArrayList(SELECTED_PRODUCTS)
+        viewModel.clearLiveData()
+        if (args != null) {
+            viewModel.getRecipeByIngredients(args)
+        } else {
+            viewModel.getSavedRecipes()
+        }
         return binding.root
     }
 
@@ -82,6 +91,16 @@ class RecipeListFragment : Fragment() {
                 myAdapter.submitList(recipeList)
             }
 
+        }
+    }
+
+    companion object {
+        private const val SELECTED_PRODUCTS = "selected_products"
+
+        fun newInstance(args: ArrayList<String>) = RecipeListFragment().apply {
+            arguments = Bundle().apply {
+                putStringArrayList(SELECTED_PRODUCTS, args)
+            }
         }
     }
 }
