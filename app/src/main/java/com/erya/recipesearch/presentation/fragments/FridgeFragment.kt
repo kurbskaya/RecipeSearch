@@ -104,7 +104,7 @@ class FridgeFragment : Fragment() {
         binding.mainBtn.setOnClickListener{
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, RecipeListFragment.newInstance(
-                    makeList(viewModel.productLiveData.value))
+                    makeList(viewModel.productLiveData.value) as ArrayList<String>)
                 )
                 .addToBackStack(null)
                 .commit()
@@ -116,9 +116,7 @@ class FridgeFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun makeList(value: List<Product>?): ArrayList<String> {
-        val usedProductsStrings = arrayListOf<String>()
-        value?.map { usedProduct -> usedProductsStrings.add(usedProduct.name) }
-        return usedProductsStrings
+    private fun makeList(value: List<Product>?): List<String> {
+        return value?.map { usedProduct -> usedProduct.name }.orEmpty()
     }
 }
