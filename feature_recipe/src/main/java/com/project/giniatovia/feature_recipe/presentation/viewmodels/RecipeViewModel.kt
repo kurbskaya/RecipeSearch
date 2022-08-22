@@ -5,17 +5,18 @@ import com.project.giniatovia.feature_recipe.domain.repository.RecipesRepository
 import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeInfoViewData
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
+import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(
     private val repository: RecipesRepository
 ) : ViewModel() {
 
-    private val _recipeLiveData = MutableLiveData<List<RecipeViewData>>()
-    val recipeLiveData: LiveData<List<RecipeViewData>> = _recipeLiveData
+    private val _recipeLiveData = MutableLiveData<UiItemError<List<RecipeViewData>>>()
+    val recipeLiveData: LiveData<UiItemError<List<RecipeViewData>>> = _recipeLiveData
 
-    private val _recipeInfoLiveData = MutableLiveData<RecipeInfoViewData>()
-    val recipeInfoLiveData: LiveData<RecipeInfoViewData> = _recipeInfoLiveData
+    private val _recipeInfoLiveData = MutableLiveData<UiItemError<RecipeInfoViewData>>()
+    val recipeInfoLiveData: LiveData<UiItemError<RecipeInfoViewData>> = _recipeInfoLiveData
 
 //    private val _savedRecipeLiveData = MutableLiveData<List<RecipeViewData>>()
 //    val savedRecipeLiveData: LiveData<List<RecipeViewData>> = _savedRecipeLiveData
@@ -40,31 +41,42 @@ class RecipeViewModel(
 
     fun getSavedRecipes() {
         viewModelScope.launch {
-            _recipeLiveData.value = repository.getSavedRecipes().map { ViewDataMapper.mapRecipeEntityToViewData(it) }
+            runCatching {
+                repository.getSavedRecipes().map { ViewDataMapper.mapRecipeEntityToViewData(it) }
+            }.onSuccess { recipes ->
+                _recipeLiveData.value = UiItemError.Success(recipes)
+            }.onFailure { exception ->
+                _recipeLiveData.value = UiItemError.Error(exception)
+            }
         }
     }
 
     fun getRecipeInfoById(id: Int) {
         viewModelScope.launch {
-            _recipeInfoLiveData.postValue(
-                ViewDataMapper.mapRecipeInfoToViewData(
-                    repository.getRecipeInfoById(id)
+            runCatching {
+                repository.getRecipeInfoById(id)
+            }.onSuccess { info ->
+                _recipeInfoLiveData.value = UiItemError.Success(
+                    ViewDataMapper.mapRecipeInfoToViewData(info)
                 )
-            )
+            }.onFailure { exception ->
+                _recipeInfoLiveData.value = UiItemError.Error(exception)
+            }
+
         }
     }
 
     fun getRecipeByIngredients(ingredients: List<String>) {
         viewModelScope.launch {
-            _recipeLiveData.postValue(
-                ViewDataMapper.mapRecipeToViewData(
-                    repository.getRecipeByIngredients(ingredients.joinToString(","))
+            runCatching {
+                repository.getRecipeByIngredients(ingredients.joinToString(","))
+            }.onSuccess { recipes ->
+                _recipeLiveData.value = UiItemError.Success(
+                    ViewDataMapper.mapRecipeToViewData(recipes)
                 )
-            )
+            }.onFailure { exception ->
+                _recipeLiveData.value = UiItemError.Error(exception)
+            }
         }
-    }
-
-    fun clearLiveData() {
-        _recipeLiveData.value = arrayListOf()
     }
 }

@@ -3,6 +3,7 @@ package com.erya.recipesearch.presentation.fragments
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.project.giniatovia.feature_fridge.presentation.ProductAdapter
 import com.project.giniatovia.core.network.models.Product
 import com.project.giniatovia.feature_fridge.presentation.viewmodels.ProductViewModel
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
+import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import okhttp3.logging.HttpLoggingInterceptor
 
 class FridgeFragment : Fragment() {
@@ -71,47 +73,66 @@ class FridgeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val lifecycleOwner = viewLifecycleOwner
-        viewModel.allProductLiveData.observe(lifecycleOwner) { allProductList: List<String> ->
-            val autoCompleteAdapter = ArrayAdapter(
-                requireContext(),
-                R.layout.item_search_product,
-                R.id.nameProduct,
-                allProductList
-            )
-            val autoCompleteWidget = binding.autoCompleteTextView
-            autoCompleteWidget.threshold = 1
-            autoCompleteWidget.setAdapter(autoCompleteAdapter)
-            autoCompleteWidget.setTextColor(Color.BLACK)
-            autoCompleteWidget.setOnItemClickListener{ _, _, _, _ ->
-                viewModel.add(autoCompleteWidget.editableText.toString())
-                autoCompleteWidget.setText(R.string.empty)
+        viewModel.allProductLiveData.observe(lifecycleOwner) { uiItemError ->
+            when (uiItemError) {
+                is UiItemError.Success -> {
+                    val autoCompleteAdapter = ArrayAdapter(
+                        requireContext(),
+                        R.layout.item_search_product,
+                        R.id.nameProduct,
+                        uiItemError.elements!!
+                    )
+                    val autoCompleteWidget = binding.autoCompleteTextView
+                    autoCompleteWidget.threshold = 1
+                    autoCompleteWidget.setAdapter(autoCompleteAdapter)
+                    autoCompleteWidget.setTextColor(Color.BLACK)
+                    autoCompleteWidget.setOnItemClickListener { _, _, _, _ ->
+                        viewModel.add(autoCompleteWidget.editableText.toString())
+                        autoCompleteWidget.setText(R.string.empty)
 
-                val context = context
-                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                imm?.hideSoftInputFromWindow(autoCompleteWidget.windowToken, 0)
-            }
-        }
-
-        viewModel.productLiveData.observe(lifecycleOwner) { productList: List<Product> ->
-            val productAdapter = binding.rv.adapter
-            if (productAdapter == null) {
-                val myAdapter = ProductAdapter()
-                binding.rv.adapter = myAdapter
-                binding.rv.layoutManager = LinearLayoutManager(requireContext())
-                myAdapter.submitList(productList)
-            } else {
-                val myAdapter = productAdapter as ProductAdapter
-                myAdapter.submitList(productList)
+                        val context = context
+                        val imm =
+                            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                        imm?.hideSoftInputFromWindow(autoCompleteWidget.windowToken, 0)
+                    }
+                }
+                is UiItemError.Error -> {
+                    // TODO: Show errors
+                    Log.d("TAG", uiItemError.exception.toString())
+                }
             }
 
         }
-        binding.mainBtn.setOnClickListener{
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, RecipeListFragment.newInstance(
-                    makeList(viewModel.productLiveData.value) as ArrayList<String>)
-                )
-                .addToBackStack(null)
-                .commit()
+
+        viewModel.productLiveData.observe(lifecycleOwner) { uiItemError ->
+            when (uiItemError) {
+                is UiItemError.Success -> {
+                    val productAdapter = binding.rv.adapter
+                    if (productAdapter == null) {
+                        val myAdapter = ProductAdapter()
+                        binding.rv.adapter = myAdapter
+                        binding.rv.layoutManager = LinearLayoutManager(requireContext())
+                        myAdapter.submitList(uiItemError.elements)
+                    } else {
+                        val myAdapter = productAdapter as ProductAdapter
+                        myAdapter.submitList(uiItemError.elements)
+                    }
+                    binding.mainBtn.setOnClickListener {
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.fragment_container, RecipeListFragment.newInstance(
+                                    makeList(uiItemError.elements) as ArrayList<String>
+                                )
+                            )
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
+                is UiItemError.Error -> {
+                    // TODO: Show errors
+                    Log.d("TAG", uiItemError.exception.toString())
+                }
+            }
         }
     }
 

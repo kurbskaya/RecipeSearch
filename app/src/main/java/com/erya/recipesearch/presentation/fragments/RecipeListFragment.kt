@@ -1,6 +1,7 @@
 package com.erya.recipesearch.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.project.giniatovia.feature_recipe.databinding.FragmentListRecipeBindi
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipeClickListener
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipesAdapter
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
+import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -61,7 +63,6 @@ class RecipeListFragment : Fragment() {
         ).get(RecipeViewModel::class.java)
 
         val args = arguments?.getStringArrayList(SELECTED_PRODUCTS)
-        viewModel.clearLiveData()
         if (args != null) {
             viewModel.getRecipeByIngredients(args)
         } else {
@@ -75,25 +76,34 @@ class RecipeListFragment : Fragment() {
 
         val lifecycleOwner = viewLifecycleOwner
 
-        viewModel.recipeLiveData.observe(lifecycleOwner) { recipeList: List<RecipeViewData> ->
-            val productAdapter = binding.rvRecipe.adapter
-            if (productAdapter == null) {
-                val myAdapter = RecipesAdapter(RecipeClickListener { item ->
-                    val fragment = RecipeDialogFragment.newInstance(item.id!!)
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
-                        .addToBackStack(null)
-                        .commit()
-                })
-                binding.rvRecipe.adapter = myAdapter
-                binding.rvRecipe.layoutManager = GridLayoutManager(requireContext(),2)
-                myAdapter.submitList(recipeList)
-
-            } else {
-                val myAdapter = productAdapter as RecipesAdapter
-                myAdapter.submitList(recipeList)
+        viewModel.recipeLiveData.observe(lifecycleOwner) { uiItemError ->
+            when (uiItemError) {
+                is UiItemError.Success -> {
+                    // Success Response
+                    binding.progressBar.visibility = View.GONE
+                    val productAdapter = binding.rvRecipe.adapter
+                    if (productAdapter == null) {
+                        val myAdapter = RecipesAdapter(RecipeClickListener { item ->
+                            val fragment = RecipeDialogFragment.newInstance(item.id!!)
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container, fragment)
+                                .addToBackStack(null)
+                                .commit()
+                        })
+                        binding.rvRecipe.adapter = myAdapter
+                        binding.rvRecipe.layoutManager = GridLayoutManager(requireContext(),2)
+                        myAdapter.submitList(uiItemError.elements)
+                    } else {
+                        val myAdapter = productAdapter as RecipesAdapter
+                        myAdapter.submitList(uiItemError.elements)
+                    }
+                }
+                // TODO: Show errors
+                is UiItemError.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    Log.d("TAG", uiItemError.exception.toString())
+                }
             }
-
         }
     }
 
