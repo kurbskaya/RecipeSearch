@@ -52,11 +52,11 @@ class OnboardingDialogFragment : BottomSheetDialogFragment() {
             ViewModelFactory(
                 RecipesRepositoryImpl(
                     recipeDataSource,
-                    (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
+                    (requireActivity().applicationContext as RecipesApplication).databaseRecipe.recipeDao()
                 ),
                 ProductRepositoryImpl(
                     requireContext(),
-                    (requireActivity().application as RecipesApplication).databaseProducts.productDao(),
+                    (requireActivity().applicationContext as RecipesApplication).databaseProducts.productDao(),
                     recipeDataSource
                 ),
                 PageRepositoryImpl()
