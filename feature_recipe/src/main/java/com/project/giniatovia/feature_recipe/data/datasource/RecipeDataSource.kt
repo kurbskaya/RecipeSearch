@@ -1,6 +1,7 @@
 package com.project.giniatovia.feature_recipe.data.datasource
 
 import com.project.giniatovia.core.network.api.RecipesApi
+import com.project.giniatovia.feature_recipe.domain.models.ProductDomain
 import com.project.giniatovia.feature_recipe.domain.models.RecipeDomain
 import com.project.giniatovia.feature_recipe.domain.models.RecipeInstructionDomain
 import com.project.giniatovia.feature_recipe.domain.models.RecipesListDomain
@@ -37,5 +38,15 @@ class RecipeDataSource(private val api: RecipesApi) {
             instructions = response.instructions,
             analyzedInstructions = response.analyzedInstructions
         )
+    }
+
+    suspend fun getProductImage(product: String): ProductDomain {
+        with (api.getProductImage(product).results.first()) {
+            return ProductDomain(
+                id = id,
+                name = name,
+                image = image
+            )
+        }
     }
 }

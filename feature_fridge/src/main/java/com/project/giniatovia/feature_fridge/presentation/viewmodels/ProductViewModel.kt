@@ -1,5 +1,6 @@
 package com.project.giniatovia.feature_fridge.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,22 +47,24 @@ class ProductViewModel(
     fun add(strProduct: String) {
         if (_productLiveData.value is UiItemError.Success) {
             val oldList = (_productLiveData.value as UiItemError.Success<List<Product>>).elements
-            val newProduct = Product(
-                name = strProduct,
-                image = IMAGE_URL + strProduct.lowercase().replace(" ", "-") + FORMAT
-            )
-            if (oldList == null){
-                _productLiveData.value = UiItemError.Success(arrayListOf(newProduct))
-                return
-            }
-            val tmp = ArrayList<Product>(oldList)
-            tmp.add(newProduct)
-            _productLiveData.value = UiItemError.Success(tmp)
-
             viewModelScope.launch {
-                repository.insertProduct(
-                    ProductMapper.mapProductToEntity(newProduct)
+                val urlSuffix = repository.getProductImage(strProduct)
+                Log.i("TEST", urlSuffix.toString())
+                val newProduct = Product(
+                    name = strProduct,
+                    image = IMAGE_URL + urlSuffix
                 )
+                if (oldList == null){
+                    _productLiveData.value = UiItemError.Success(arrayListOf(newProduct))
+                } else {
+                    val tmp = ArrayList<Product>(oldList)
+                    tmp.add(newProduct)
+                    _productLiveData.value = UiItemError.Success(tmp)
+
+                    repository.insertProduct(
+                        ProductMapper.mapProductToEntity(newProduct)
+                    )
+                }
             }
         }
     }
@@ -73,6 +76,5 @@ class ProductViewModel(
 
     companion object {
         private const val IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
-        private const val FORMAT = ".jpg"
     }
 }
