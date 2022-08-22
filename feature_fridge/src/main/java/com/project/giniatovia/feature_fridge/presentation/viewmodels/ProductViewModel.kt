@@ -3,13 +3,17 @@ package com.project.giniatovia.feature_fridge.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.project.giniatovia.feature_fridge.domain.ProductRepository
 import com.project.giniatovia.core.network.models.Product
+import com.project.giniatovia.feature_fridge.presentation.ProductMapper
+import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.coroutines.launch
 
 class ProductViewModel(
     private val repository: ProductRepository
-):ViewModel() {
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     private val _productLiveData = MutableLiveData<List<Product>>()
@@ -27,6 +31,12 @@ class ProductViewModel(
         compositeDisposable.add(disposable)
     }
 
+    fun getProductsFromDb() {
+        viewModelScope.launch {
+            _productLiveData.value = repository.getSavedProducts().map { ProductMapper.mapEntityToProduct(it) }
+        }
+    }
+
     fun add(strProduct: String) {
         val oldList = _productLiveData.value
         val newProduct = Product(
@@ -40,6 +50,12 @@ class ProductViewModel(
         val tmp = ArrayList<Product>(oldList)
         tmp.add(newProduct)
         _productLiveData.value = tmp
+
+        viewModelScope.launch {
+            repository.insertProduct(
+                ProductMapper.mapProductToEntity(newProduct)
+            )
+        }
     }
 
     override fun onCleared() {
