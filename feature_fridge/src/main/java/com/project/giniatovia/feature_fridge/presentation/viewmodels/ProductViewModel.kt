@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.project.giniatovia.feature_fridge.domain.ProductRepository
 import com.project.giniatovia.core.network.models.Product
 import com.project.giniatovia.feature_fridge.presentation.ProductMapper
-import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
+import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
@@ -16,45 +16,53 @@ class ProductViewModel(
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    private val _productLiveData = MutableLiveData<List<Product>>()
-    val productLiveData: LiveData<List<Product>> = _productLiveData
+    private val _productLiveData = MutableLiveData<UiItemError<List<Product>>>()
+    val productLiveData: LiveData<UiItemError<List<Product>>> = _productLiveData
 
-    private val _allProductLiveData = MutableLiveData<List<String>>()
-    val allProductLiveData: LiveData<List<String>> = _allProductLiveData
+    private val _allProductLiveData = MutableLiveData<UiItemError<List<String>>>()
+    val allProductLiveData: LiveData<UiItemError<List<String>>> = _allProductLiveData
 
     fun getAllProducts() {
         val disposable = repository.getAllProducts().subscribe({ parsedResult ->
-            _allProductLiveData.postValue(parsedResult)
+            _allProductLiveData.postValue(UiItemError.Success(parsedResult))
         }, {
-            it.toString()
+            _allProductLiveData.postValue(UiItemError.Error(it))
         })
         compositeDisposable.add(disposable)
     }
 
     fun getProductsFromDb() {
         viewModelScope.launch {
-            _productLiveData.value = repository.getSavedProducts().map { ProductMapper.mapEntityToProduct(it) }
+            runCatching {
+                repository.getSavedProducts().map { ProductMapper.mapEntityToProduct(it) }
+            }.onSuccess { savedProducts ->
+                _productLiveData.value = UiItemError.Success(savedProducts)
+            }.onFailure { exception ->
+                _productLiveData.value = UiItemError.Error(exception)
+            }
         }
     }
 
     fun add(strProduct: String) {
-        val oldList = _productLiveData.value
-        val newProduct = Product(
-            name = strProduct,
-            image = IMAGE_URL + strProduct.lowercase().replace(" ", "-") + FORMAT
-        )
-        if (oldList == null){
-            _productLiveData.value = arrayListOf(newProduct)
-            return
-        }
-        val tmp = ArrayList<Product>(oldList)
-        tmp.add(newProduct)
-        _productLiveData.value = tmp
-
-        viewModelScope.launch {
-            repository.insertProduct(
-                ProductMapper.mapProductToEntity(newProduct)
+        if (_productLiveData.value is UiItemError.Success) {
+            val oldList = (_productLiveData.value as UiItemError.Success<List<Product>>).elements
+            val newProduct = Product(
+                name = strProduct,
+                image = IMAGE_URL + strProduct.lowercase().replace(" ", "-") + FORMAT
             )
+            if (oldList == null){
+                _productLiveData.value = UiItemError.Success(arrayListOf(newProduct))
+                return
+            }
+            val tmp = ArrayList<Product>(oldList)
+            tmp.add(newProduct)
+            _productLiveData.value = UiItemError.Success(tmp)
+
+            viewModelScope.launch {
+                repository.insertProduct(
+                    ProductMapper.mapProductToEntity(newProduct)
+                )
+            }
         }
     }
 
