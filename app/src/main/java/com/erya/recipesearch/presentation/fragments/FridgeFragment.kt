@@ -53,13 +53,17 @@ class FridgeFragment : Fragment() {
                             )
                         ).recipesService(),
                     ),
-                    (requireActivity().application as RecipesApplication).database.recipeDao()
+                    (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
                 ),
-                ProductRepositoryImpl(requireContext()),
+                ProductRepositoryImpl(
+                    requireContext(),
+                    (requireActivity().application as RecipesApplication).databaseProducts.productDao()
+                ),
                 PageRepositoryImpl()
             )
         ).get(ProductViewModel::class.java)
         viewModel.getAllProducts()
+        viewModel.getProductsFromDb()
         return binding.root
     }
 

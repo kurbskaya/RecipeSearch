@@ -20,5 +20,5 @@ class RecipeEntity(
     val summary: String? = null,
 
     @ColumnInfo(name = "instructions")
-    val instructions: String? = null,
+    val instructions: String? = null
 )

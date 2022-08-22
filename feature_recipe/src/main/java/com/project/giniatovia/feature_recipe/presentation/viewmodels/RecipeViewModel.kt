@@ -1,7 +1,6 @@
 package com.project.giniatovia.feature_recipe.presentation.viewmodels
 
 import androidx.lifecycle.*
-import com.project.giniatovia.core.db.models.RecipeEntity
 import com.project.giniatovia.feature_recipe.domain.repository.RecipesRepository
 import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeInfoViewData

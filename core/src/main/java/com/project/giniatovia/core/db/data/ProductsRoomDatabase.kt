@@ -5,16 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.project.giniatovia.core.db.models.ProductEntity
 import com.project.giniatovia.core.db.models.RecipeEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [RecipeEntity::class], version = 1, exportSchema = false)
-abstract class RecipeRoomDatabase : RoomDatabase() {
+@Database(entities = [ProductEntity::class], version = 1, exportSchema = false)
+abstract class ProductsRoomDatabase : RoomDatabase() {
 
-    abstract fun recipeDao(): RecipeDao
+    abstract fun productDao(): ProductDao
 
-    private class RecipeDatabaseCallback(
+    private class ProductsDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
@@ -22,9 +23,8 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    // Filling new database
-                    val dao = database.recipeDao()
-                    dao.deleteAll()
+                    val dao = database.productDao()
+                    dao.deleteAllRecords()
                 }
             }
         }
@@ -32,22 +32,21 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE: RecipeRoomDatabase? = null
+        private var INSTANCE: ProductsRoomDatabase? = null
 
         fun getDatabase(
             context: Context,
             scope: CoroutineScope
-        ): RecipeRoomDatabase {
+        ): ProductsRoomDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    RecipeRoomDatabase::class.java,
-                    "saved_recipes"
+                    ProductsRoomDatabase::class.java,
+                    "saved_products"
                 )
-                    .addCallback(RecipeDatabaseCallback(scope))
+                    .addCallback(ProductsDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
-                // return instance
                 instance
             }
         }

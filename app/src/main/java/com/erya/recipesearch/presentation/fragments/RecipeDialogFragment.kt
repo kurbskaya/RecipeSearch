@@ -42,9 +42,12 @@ class RecipeDialogFragment : Fragment() {
                             )
                         ).recipesService(),
                     ),
-                    (requireActivity().application as RecipesApplication).database.recipeDao()
+                    (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
                 ),
-                ProductRepositoryImpl(requireContext()),
+                ProductRepositoryImpl(
+                    requireContext(),
+                    (requireActivity().application as RecipesApplication).databaseProducts.productDao()
+                ),
                 PageRepositoryImpl()
             )
         ).get(RecipeViewModel::class.java)
