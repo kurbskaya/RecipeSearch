@@ -47,9 +47,9 @@ class ProductViewModel(
     fun add(strProduct: String) {
         if (_productLiveData.value is UiItemError.Success) {
             val oldList = (_productLiveData.value as UiItemError.Success<List<Product>>).elements
+
             viewModelScope.launch {
                 val urlSuffix = repository.getProductImage(strProduct)
-                Log.i("TEST", urlSuffix.toString())
                 val newProduct = Product(
                     name = strProduct,
                     image = IMAGE_URL + urlSuffix
@@ -60,7 +60,6 @@ class ProductViewModel(
                     val tmp = ArrayList<Product>(oldList)
                     tmp.add(newProduct)
                     _productLiveData.value = UiItemError.Success(tmp)
-
                     repository.insertProduct(
                         ProductMapper.mapProductToEntity(newProduct)
                     )
