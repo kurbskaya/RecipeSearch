@@ -2,7 +2,7 @@ package com.project.giniatovia.feature_fridge.data
 
 import android.content.Context
 import androidx.annotation.WorkerThread
-import com.project.giniatovia.core.db.data.ProductDao
+import com.project.giniatovia.core.db.data.RecipeDao
 import com.project.giniatovia.core.db.models.ProductEntity
 import com.project.giniatovia.core.network.data.CSVParser
 import com.project.giniatovia.feature_fridge.domain.ProductRepository
@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class ProductRepositoryImpl(
     private val context: Context,
-    private val productDao: ProductDao,
+    private val recipeDao: RecipeDao,
     private val dataSource: RecipeDataSource
     ) : ProductRepository {
     override fun getAllProducts(): Single<List<String>> = Single
@@ -23,12 +23,12 @@ class ProductRepositoryImpl(
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    override suspend fun insertProduct(product: ProductEntity) = productDao.insertProduct(product)
+    override suspend fun insertProduct(product: ProductEntity) = recipeDao.insertProduct(product)
 
-    override suspend fun getSavedProducts(): List<ProductEntity> = productDao.getSavedProducts()
+    override suspend fun getSavedProducts(): List<ProductEntity> = recipeDao.getSavedProducts()
 
     @WorkerThread
-    override suspend fun deleteProduct(product: ProductEntity) = productDao.deleteProduct(product)
+    override suspend fun deleteProduct(product: ProductEntity) = recipeDao.deleteProduct(product)
 
     override suspend fun getProductImage(product: String) = dataSource.getProductImage(product).image
 }

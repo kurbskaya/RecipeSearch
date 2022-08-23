@@ -14,7 +14,7 @@ import com.erya.recipesearch.presentation.viewmodels.OnboardingViewModel
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.erya.recipesearch.RecipesApplication
+import com.project.giniatovia.core.db.data.RecipeRoomDatabase
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryImpl
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
@@ -52,11 +52,11 @@ class OnboardingDialogFragment : BottomSheetDialogFragment() {
             ViewModelFactory(
                 RecipesRepositoryImpl(
                     recipeDataSource,
-                    (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
+                    RecipeRoomDatabase.getDatabase(requireContext()).recipeDao()
                 ),
                 ProductRepositoryImpl(
                     requireContext().applicationContext,
-                    (requireActivity().application as RecipesApplication).databaseProducts.productDao(),
+                    RecipeRoomDatabase.getDatabase(requireContext()).recipeDao(),
                     recipeDataSource
                 ),
                 PageRepositoryImpl()

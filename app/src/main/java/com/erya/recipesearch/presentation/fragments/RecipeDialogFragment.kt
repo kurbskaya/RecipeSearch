@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
-import com.erya.recipesearch.RecipesApplication
+import com.project.giniatovia.core.db.data.RecipeRoomDatabase
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
@@ -45,11 +45,11 @@ class RecipeDialogFragment : Fragment() {
             ViewModelFactory(
                 RecipesRepositoryImpl(
                     recipeDataSource,
-                    (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
+                    RecipeRoomDatabase.getDatabase(requireContext()).recipeDao(),
                 ),
                 ProductRepositoryImpl(
                     requireContext(),
-                    (requireActivity().application as RecipesApplication).databaseProducts.productDao(),
+                    RecipeRoomDatabase.getDatabase(requireContext()).recipeDao(),
                     recipeDataSource
                 ),
                 PageRepositoryImpl()
