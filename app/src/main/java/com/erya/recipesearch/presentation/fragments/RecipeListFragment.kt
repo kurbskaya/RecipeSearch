@@ -17,9 +17,7 @@ import com.project.giniatovia.feature_recipe.data.repository.RecipesRepositoryIm
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
 import com.project.giniatovia.feature_recipe.databinding.FragmentListRecipeBinding
-import com.project.giniatovia.feature_recipe.presentation.adapters.RecipeClickListener
 import com.project.giniatovia.feature_recipe.presentation.adapters.RecipesAdapter
-import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
 import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import com.project.giniatovia.feature_recipe.presentation.viewmodels.RecipeViewModel
 import okhttp3.logging.HttpLoggingInterceptor
@@ -85,13 +83,15 @@ class RecipeListFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     val productAdapter = binding.rvRecipe.adapter
                     if (productAdapter == null) {
-                        val myAdapter = RecipesAdapter(RecipeClickListener { item ->
-                            val fragment = RecipeDialogFragment.newInstance(item.id!!)
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_container, fragment)
-                                .addToBackStack(null)
-                                .commit()
-                        })
+                        val myAdapter = RecipesAdapter(
+                            onRecipeClick = {
+                                val fragment = RecipeDialogFragment.newInstance(it.id!!)
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(R.id.fragment_container, fragment)
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
+                        )
                         binding.rvRecipe.adapter = myAdapter
                         binding.rvRecipe.layoutManager = GridLayoutManager(requireContext(),2)
                         myAdapter.submitList(uiItemError.elements)
@@ -105,8 +105,17 @@ class RecipeListFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     Log.d("TAG", uiItemError.exception.toString())
                 }
+                is UiItemError.Loading-> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        viewModel.clearLiveData()
+        super.onDestroyView()
     }
 
     companion object {

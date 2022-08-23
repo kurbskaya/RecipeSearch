@@ -102,6 +102,9 @@ class FridgeFragment : Fragment() {
                     // TODO: Show errors
                     Log.d("TAG", uiItemError.exception.toString())
                 }
+                is UiItemError.Loading -> {
+                    //todo: show progress bar
+                }
             }
 
         }
@@ -111,7 +114,9 @@ class FridgeFragment : Fragment() {
                 is UiItemError.Success -> {
                     val productAdapter = binding.rv.adapter
                     if (productAdapter == null) {
-                        val myAdapter = ProductAdapter()
+                        val myAdapter = ProductAdapter(
+                            onDeleteProductClick = { viewModel.deleteProduct(it) }
+                        )
                         binding.rv.adapter = myAdapter
                         binding.rv.layoutManager = LinearLayoutManager(requireContext())
                         myAdapter.submitList(uiItemError.elements)
@@ -133,6 +138,9 @@ class FridgeFragment : Fragment() {
                 is UiItemError.Error -> {
                     // TODO: Show errors
                     Log.d("TAG", uiItemError.exception.toString())
+                }
+                is UiItemError.Loading -> {
+                    //todo: show progress bar
                 }
             }
         }

@@ -63,7 +63,11 @@ class RecipeDialogFragment : Fragment() {
     ): View {
         _binding = RecipeDialogBinding.inflate(inflater, container, false)
         val args = arguments?.getInt(ID_RECIPE)
-        if (args != null) viewModel.getRecipeInfoById(args)
+        //viewModel.clearInfoLiveData()
+        if (args != null) {
+            viewModel.getRecipeInfoById(args)
+            viewModel.searchDb(args)
+        }
         return binding.root
     }
 
@@ -71,23 +75,40 @@ class RecipeDialogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.recipeInfoLiveData.observe(viewLifecycleOwner) { uiItemError ->
             if (uiItemError is UiItemError.Success) {
+                binding.progressBar1.visibility = View.GONE
                 Glide.with(binding.recipeDialogImg.context)
                     .load(uiItemError.elements?.image)
                     .circleCrop()
                     .into(binding.recipeDialogImg)
 
-                val bottomSheetDialogFragment = RecipeBottomSheetDialogFragment
-                    .newInstance(uiItemError.elements?.summary!!)
-                //bottomSheetDialogFragment.setCancelable(false)
-                bottomSheetDialogFragment
-                    .show(requireActivity().supportFragmentManager, "tag1")
+                binding.textRecipe.text = uiItemError.elements?.summary
             }
         }
 
-        binding.buttonTest.setOnClickListener {
-            viewModel.recipeInfoLiveData.value?.let { recipe ->
-                if (recipe is UiItemError.Success) {
-                    viewModel.insertRecipeDb(recipe.elements!!)
+        val resBookmark = com.project.giniatovia.feature_recipe.R.drawable.ic_bookmark
+        val resBookmarkFilled = com.project.giniatovia.feature_recipe.R.drawable.ic_bookmark_filled
+        val bookmarkImg = binding.bookmark
+
+        viewModel.isSavedRecipe.observe(viewLifecycleOwner) { isSaved ->
+            if (isSaved) {
+                bookmarkImg.setImageResource(resBookmarkFilled)
+                bookmarkImg.setOnClickListener{
+                    viewModel.recipeInfoLiveData.value?.let { recipe ->
+                        if (recipe is UiItemError.Success) {
+                            viewModel.deleteRecipeDb(recipe.elements!!)
+                        }
+                    }
+                    bookmarkImg.setImageResource(resBookmark)
+                }
+            } else {
+                bookmarkImg.setImageResource(resBookmark)
+                bookmarkImg.setOnClickListener{
+                    viewModel.recipeInfoLiveData.value?.let { recipe ->
+                        if (recipe is UiItemError.Success) {
+                            viewModel.insertRecipeDb(recipe.elements!!)
+                        }
+                    }
+                    bookmarkImg.setImageResource(resBookmarkFilled)
                 }
             }
         }
@@ -95,15 +116,16 @@ class RecipeDialogFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        viewModel.clearInfoLiveData()
         super.onDestroyView()
     }
 
     companion object {
         private const val ID_RECIPE = "id_recipe"
 
-        fun newInstance(args: Int) = RecipeDialogFragment().apply {
+        fun newInstance(arg1: Int) = RecipeDialogFragment().apply {
             arguments = Bundle().apply {
-                putInt(ID_RECIPE, args)
+                putInt(ID_RECIPE, arg1)
             }
         }
     }

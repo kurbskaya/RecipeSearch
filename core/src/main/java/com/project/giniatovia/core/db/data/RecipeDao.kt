@@ -1,9 +1,6 @@
 package com.project.giniatovia.core.db.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.project.giniatovia.core.db.models.RecipeEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +15,10 @@ interface RecipeDao {
 
     @Query("DELETE FROM saved_recipes")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun delete(recipe: RecipeEntity)
+
+    @Query("SELECT EXISTS (SELECT 1 FROM saved_recipes WHERE id = :recipeId)")
+    suspend fun search(recipeId: Int): Boolean
 }
