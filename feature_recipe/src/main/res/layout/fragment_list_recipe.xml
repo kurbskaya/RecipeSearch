@@ -42,7 +42,6 @@
         android:id="@+id/rv_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_recipe" />
         android:layout_marginTop="80dp"
         tools:listitem="@layout/item_recipe"/>
 
