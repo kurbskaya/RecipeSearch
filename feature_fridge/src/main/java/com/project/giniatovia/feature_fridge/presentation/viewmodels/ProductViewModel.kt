@@ -1,12 +1,11 @@
 package com.project.giniatovia.feature_fridge.presentation.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.project.giniatovia.feature_fridge.domain.ProductRepository
 import com.project.giniatovia.core.network.models.Product
+import com.project.giniatovia.feature_fridge.domain.ProductRepository
 import com.project.giniatovia.feature_fridge.presentation.ProductMapper
 import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import io.reactivex.rxjava3.disposables.CompositeDisposable

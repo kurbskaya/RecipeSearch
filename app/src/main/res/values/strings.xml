@@ -6,4 +6,5 @@
     <string name="third_description">Save your favourite recipe</string>
     <string name="some_title">Our possibilities</string>
     <string name="close">Close</string>
+    <string name="empty" translatable="false" />
 </resources>

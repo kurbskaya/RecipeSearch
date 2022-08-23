@@ -43,7 +43,6 @@ class ProductAdapter(private val onDeleteProductClick:  (item: Product) -> Unit)
         fun bind(product: Product) {
             this.cell = product
             binding.name.text = product.name
-            binding.energy.text = product.energy
             Glide.with(binding.productImage.context)
                 .load(product.image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
