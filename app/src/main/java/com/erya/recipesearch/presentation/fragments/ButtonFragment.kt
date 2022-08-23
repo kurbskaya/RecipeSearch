@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieDrawable
 import com.erya.recipesearch.R
 import com.erya.recipesearch.databinding.ButtonFragmentBinding
 
@@ -26,6 +27,10 @@ class ButtonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.imgIntro.setAnimation(R.raw.intro)
+        binding.imgIntro.repeatCount = LottieDrawable.INFINITE
+        binding.imgIntro.playAnimation()
 
         binding.mainBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
