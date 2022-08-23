@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
@@ -90,6 +91,11 @@ class RecipeDialogFragment : Fragment() {
         val resBookmark = com.project.giniatovia.feature_recipe.R.drawable.ic_bookmark
         val resBookmarkFilled = com.project.giniatovia.feature_recipe.R.drawable.ic_bookmark_filled
         val bookmarkImg = binding.bookmark
+        val goBackButton = binding.icBack
+
+        goBackButton.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
 
         viewModel.isSavedRecipe.observe(viewLifecycleOwner) { isSaved ->
             if (isSaved) {
