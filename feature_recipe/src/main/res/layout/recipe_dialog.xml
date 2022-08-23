@@ -39,4 +39,11 @@
 
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progress_bar1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

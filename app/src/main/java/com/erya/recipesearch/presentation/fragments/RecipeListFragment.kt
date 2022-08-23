@@ -63,7 +63,6 @@ class RecipeListFragment : Fragment() {
         ).get(RecipeViewModel::class.java)
 
         val args = arguments?.getStringArrayList(SELECTED_PRODUCTS)
-        viewModel.clearLiveData()
         if (args != null) {
             viewModel.getRecipeByIngredients(args)
         } else {
@@ -106,8 +105,17 @@ class RecipeListFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     Log.d("TAG", uiItemError.exception.toString())
                 }
+                is UiItemError.Loading-> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        viewModel.clearLiveData()
+        super.onDestroyView()
     }
 
     companion object {

@@ -75,7 +75,11 @@ class RecipeViewModel(
     }
 
     fun clearLiveData() {
-        _recipeLiveData.value = UiItemError.Success(arrayListOf())
+        _recipeLiveData.value = UiItemError.Loading()
+    }
+
+    fun clearInfoLiveData() {
+        _recipeInfoLiveData.value = UiItemError.Loading()
     }
 
     fun searchDb(recipeId: Int) =

@@ -102,6 +102,9 @@ class FridgeFragment : Fragment() {
                     // TODO: Show errors
                     Log.d("TAG", uiItemError.exception.toString())
                 }
+                is UiItemError.Loading -> {
+                    //todo: show progress bar
+                }
             }
 
         }
@@ -135,6 +138,9 @@ class FridgeFragment : Fragment() {
                 is UiItemError.Error -> {
                     // TODO: Show errors
                     Log.d("TAG", uiItemError.exception.toString())
+                }
+                is UiItemError.Loading -> {
+                    //todo: show progress bar
                 }
             }
         }

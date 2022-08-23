@@ -63,6 +63,7 @@ class RecipeDialogFragment : Fragment() {
     ): View {
         _binding = RecipeDialogBinding.inflate(inflater, container, false)
         val args = arguments?.getInt(ID_RECIPE)
+        //viewModel.clearInfoLiveData()
         if (args != null) {
             viewModel.getRecipeInfoById(args)
             viewModel.searchDb(args)
@@ -74,6 +75,7 @@ class RecipeDialogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.recipeInfoLiveData.observe(viewLifecycleOwner) { uiItemError ->
             if (uiItemError is UiItemError.Success) {
+                binding.progressBar1.visibility = View.GONE
                 Glide.with(binding.recipeDialogImg.context)
                     .load(uiItemError.elements?.image)
                     .circleCrop()
@@ -114,6 +116,7 @@ class RecipeDialogFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        viewModel.clearInfoLiveData()
         super.onDestroyView()
     }
 
