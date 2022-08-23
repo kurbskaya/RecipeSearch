@@ -6,8 +6,6 @@
     android:layout_margin="20dp"
     app:cardBackgroundColor="#ffffff"
     app:cardCornerRadius="20dp"
-    app:cardElevation="8dp"
-    app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true">
 
     <LinearLayout
@@ -31,8 +29,11 @@
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="10dp"
             android:fontFamily="@font/roboto_regular"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textStyle="bold"
             android:textColor="#000000"
-            android:textSize="20sp"
+            android:textSize="16sp"
             tools:text="Potato" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
