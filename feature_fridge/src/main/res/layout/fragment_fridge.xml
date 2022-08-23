@@ -46,14 +46,13 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/lottieProducts"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
         tools:listitem="@layout/item_product" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
@@ -69,9 +68,7 @@
         android:id="@+id/secondary_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_margin="10dp"
         android:background="@drawable/secondary_button_background"
         android:clickable="false"
         android:fontFamily="@font/roboto_regular"

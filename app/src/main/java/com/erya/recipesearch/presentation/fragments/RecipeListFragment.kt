@@ -128,7 +128,7 @@ class RecipeListFragment : Fragment() {
 
     private fun handleEmptyScreen() {
         val lottieImg = binding.lottieRecipes
-        lottieImg.setAnimation(com.project.giniatovia.feature_fridge.R.raw.empty_products_lottie)
+        lottieImg.setAnimation(com.project.giniatovia.feature_recipe.R.raw.empty_recipes_lottie)
         lottieImg.repeatCount = LottieDrawable.INFINITE
         lottieImg.visibility = View.VISIBLE
         lottieImg.playAnimation()
