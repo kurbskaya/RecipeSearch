@@ -27,9 +27,8 @@ class ButtonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.imgIntro.setAnimation(R.raw.intro)
         binding.imgIntro.repeatCount = LottieDrawable.INFINITE
-        binding.imgIntro.repeatMode = LottieDrawable.REVERSE
-        binding.imgIntro.setAnimation(R.raw.buttons_fragment)
         binding.imgIntro.playAnimation()
 
         binding.mainBtn.setOnClickListener {

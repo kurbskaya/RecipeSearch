@@ -7,9 +7,9 @@ import com.erya.recipesearch.models.PageRepository
 class PageRepositoryImpl : PageRepository {
     override fun getPages(): ArrayList<Page> {
         return arrayListOf(
-            Page("description1", R.raw.first_page),
-            Page("description2", R.raw.second_page),
-            Page("description3", R.raw.third_page)
+            Page("Choose the products you have", R.raw.first_page),
+            Page("And we will give you the recipe for them", R.raw.second_page),
+            Page("Save your favourite recipe", R.raw.third_page)
         )
     }
 }

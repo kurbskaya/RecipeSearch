@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imgIntro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
-        app:lottie_rawRes="@raw/buttons_fragment"
-        android:scaleType="centerCrop" />
+        android:layout_marginTop="30dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="center"
+        android:text="It's time to take a meal!"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/imgIntro" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/main_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/secondary_button_background"
-            android:layout_marginHorizontal="20dp"
-            app:backgroundTint="#ebf1eb"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/main_button_background"
             android:fontFamily="@font/roboto_regular"
-            android:textColor="#2F782E"
+            android:text="Choose a new dish"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:text="Choose a new dish"/>
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="30dp"/>
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/secondary_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:background="@drawable/secondary_button_background"
-            android:layout_marginHorizontal="20dp"
-            app:backgroundTint="#2F782E"
-            android:textAllCaps="false"
-            android:textSize="20sp"
             android:fontFamily="@font/roboto_regular"
+            android:text="Saved dishes"
+            android:textAllCaps="false"
+            android:textColor="#3A6E39"
+            android:textSize="20sp" />
             android:text="Favourite recipes" />
     </LinearLayout>
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
