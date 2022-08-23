@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#3A6E39">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#3A6E39">
 
         <ImageView
             android:id="@+id/bookmark"
@@ -43,7 +40,7 @@
             android:id="@+id/recipe_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="40dp"
+            android:layout_margin="30dp"
             android:gravity="center"
             android:scaleType="centerInside"
             app:layout_constraintTop_toBottomOf="@id/recipe_dialog_img"
@@ -57,13 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/recipe_dialog_title"
-            android:layout_marginTop="40dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                app:cardCornerRadius="10dp">
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bottom_sheet_background">
 
                 <TextView
                     android:id="@+id/text_recipe"
@@ -71,9 +63,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:textColor="@color/black"
+                    android:gravity="center"
                     android:textSize="18sp"
+                    android:lineHeight="30sp"
                     android:fontFamily="@font/roboto_regular" />
-            </androidx.cardview.widget.CardView>
 
         </androidx.core.widget.NestedScrollView>
 
@@ -88,4 +81,3 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

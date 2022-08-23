@@ -30,11 +30,20 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/lottieRecipes" />
 
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_back_green" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_recipe" />
+        android:layout_marginTop="80dp"
+        tools:listitem="@layout/item_recipe"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"
