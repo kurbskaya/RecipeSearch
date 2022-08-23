@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView"
@@ -25,14 +26,18 @@
         android:layout_below="@+id/autoCompleteTextView"
         tools:listitem="@layout/item_product" />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/main_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/main_button_background" />
+        android:text="Pick up a recipe"
+        android:backgroundTint="#2F782E"
+        android:textColor="@color/white"
+        android:background="@drawable/main_button_background"
+        android:fontFamily="@font/roboto_regular" />
 </RelativeLayout>
 
