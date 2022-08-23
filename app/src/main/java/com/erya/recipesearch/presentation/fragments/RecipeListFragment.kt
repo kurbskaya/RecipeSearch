@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.airbnb.lottie.LottieDrawable
 import com.erya.recipesearch.R
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
@@ -79,6 +80,11 @@ class RecipeListFragment : Fragment() {
         viewModel.recipeLiveData.observe(lifecycleOwner) { uiItemError ->
             when (uiItemError) {
                 is UiItemError.Success -> {
+                    if (uiItemError.elements?.size == 0) {
+                        handleEmptyScreen()
+                    } else {
+                        handleFilledScreen()
+                    }
                     // Success Response
                     binding.progressBar.visibility = View.GONE
                     val productAdapter = binding.rvRecipe.adapter
@@ -110,6 +116,24 @@ class RecipeListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun handleFilledScreen() {
+        val lottieImg = binding.lottieRecipes
+        lottieImg.clearAnimation()
+        lottieImg.visibility = View.GONE
+
+        binding.emptyTV.visibility = View.GONE
+    }
+
+    private fun handleEmptyScreen() {
+        val lottieImg = binding.lottieRecipes
+        lottieImg.setAnimation(com.project.giniatovia.feature_fridge.R.raw.empty_products_lottie)
+        lottieImg.repeatCount = LottieDrawable.INFINITE
+        lottieImg.visibility = View.VISIBLE
+        lottieImg.playAnimation()
+
+        binding.emptyTV.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
