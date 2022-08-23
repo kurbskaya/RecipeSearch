@@ -1,10 +1,7 @@
 package com.project.giniatovia.feature_recipe.data.datasource
 
 import com.project.giniatovia.core.network.api.RecipesApi
-import com.project.giniatovia.feature_recipe.domain.models.ProductDomain
-import com.project.giniatovia.feature_recipe.domain.models.RecipeDomain
-import com.project.giniatovia.feature_recipe.domain.models.RecipeInstructionDomain
-import com.project.giniatovia.feature_recipe.domain.models.RecipesListDomain
+import com.project.giniatovia.feature_recipe.domain.models.*
 
 class RecipeDataSource(private val api: RecipesApi) {
     suspend fun getRandomRecipe() = RecipesListDomain(
@@ -23,7 +20,9 @@ class RecipeDataSource(private val api: RecipesApi) {
             it.id,
             it.title,
             it.image,
-            it.summary
+            it.summary,
+            it.missedIngredientCount,
+            it.usedIngredientCount
         )
     }
 
@@ -36,7 +35,17 @@ class RecipeDataSource(private val api: RecipesApi) {
             image = response.image,
             summary = response.summary,
             instructions = response.instructions,
-            analyzedInstructions = response.analyzedInstructions
+            analyzedInstructions = response.analyzedInstructions,
+            servings = response.servings,
+            readyInMinutes = response.readyInMinutes
+        )
+    }
+
+    suspend fun getRecipeInfoNutrition(id: Int): RecipeNutritionDomain {
+        val response = api.getRecipeInfoNutrition(id)
+        return RecipeNutritionDomain(
+            id = response.id,
+            calories = response.calories
         )
     }
 

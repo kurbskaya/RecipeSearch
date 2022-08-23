@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.project.giniatovia.core.db.models.ProductEntity
 import com.project.giniatovia.core.db.models.RecipeEntity
 
-@Database(entities = [RecipeEntity::class, ProductEntity::class], version = 2, exportSchema = false)
+@Database(entities = [RecipeEntity::class, ProductEntity::class], version = 3, exportSchema = false)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
     abstract fun recipeDao(): RecipeDao

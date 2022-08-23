@@ -29,4 +29,6 @@ class RecipesRepositoryImpl(
 
     @WorkerThread
     override suspend fun searchRecipe(recipeId: Int) = dao.search(recipeId)
+
+    override suspend fun getRecipeInfoNutrition(id: Int) = dataSource.getRecipeInfoNutrition(id)
 }

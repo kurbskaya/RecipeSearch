@@ -11,4 +11,6 @@ class RecipeInfoViewData(
     val summary: String? = null,
     val instructions: String? = null,
     val analyzedInstructions: List<String> = listOf(),
+    val servings: Int? = null,
+    val readyInMinutes: Int? = null
 )

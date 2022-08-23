@@ -4,7 +4,9 @@ import com.project.giniatovia.core.db.models.RecipeEntity
 import com.project.giniatovia.feature_recipe.domain.models.ExtendedIngredients
 import com.project.giniatovia.feature_recipe.domain.models.RecipeDomain
 import com.project.giniatovia.feature_recipe.domain.models.RecipeInstructionDomain
+import com.project.giniatovia.feature_recipe.domain.models.RecipeNutritionDomain
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeInfoViewData
+import com.project.giniatovia.feature_recipe.presentation.models.RecipeNutritionViewData
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
 
 object ViewDataMapper {
@@ -13,6 +15,8 @@ object ViewDataMapper {
             id = it.id,
             title = it.title,
             image = it.image,
+            missedIngredientCount = it.missedIngredientCount,
+            usedIngredientCount = it.usedIngredientCount
         )
     }
 
@@ -36,7 +40,9 @@ object ViewDataMapper {
             image = recipe.image,
             summary = recipe.summary,
             instructions = recipe.instructions,
-            analyzedInstructions = instructionsBySteps
+            analyzedInstructions = instructionsBySteps,
+            servings = recipe.servings,
+            readyInMinutes = recipe.readyInMinutes
         )
     }
 
@@ -56,5 +62,11 @@ object ViewDataMapper {
             image = recipe.image,
             summary = recipe.summary,
             instructions = recipe.instructions
+        )
+
+    fun mapRecipeNutritionsToViewData(recipe: RecipeNutritionDomain): RecipeNutritionViewData =
+        RecipeNutritionViewData(
+            id = recipe.id,
+            calories = recipe.calories
         )
 }

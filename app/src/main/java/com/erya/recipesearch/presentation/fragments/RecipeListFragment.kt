@@ -75,13 +75,13 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val lifecycleOwner = viewLifecycleOwner
-
-        val goBackButton = binding.icBack
-
-        goBackButton.setOnClickListener{
+        val toolbar = binding.toolbar
+        toolbar.setNavigationIcon(com.project.giniatovia.feature_recipe.R.drawable.ic_back_green)
+        toolbar.setNavigationOnClickListener {
             parentFragmentManager.popBackStack()
         }
+
+        val lifecycleOwner = viewLifecycleOwner
 
         viewModel.recipeLiveData.observe(lifecycleOwner) { uiItemError ->
             when (uiItemError) {
@@ -130,6 +130,7 @@ class RecipeListFragment : Fragment() {
         lottieImg.visibility = View.GONE
 
         binding.emptyTV.visibility = View.GONE
+        binding.tags.visibility = View.VISIBLE
     }
 
     private fun handleEmptyScreen() {
@@ -140,6 +141,7 @@ class RecipeListFragment : Fragment() {
         lottieImg.playAnimation()
 
         binding.emptyTV.visibility = View.VISIBLE
+        binding.tags.visibility = View.GONE
     }
 
     override fun onDestroyView() {

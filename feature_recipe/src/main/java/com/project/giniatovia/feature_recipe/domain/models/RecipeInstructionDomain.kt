@@ -11,6 +11,8 @@ class RecipeInstructionDomain(
     val summary: String? = null,
     val instructions: String? = null,
     val analyzedInstructions: List<AnalyzedInstructions> = listOf(),
+    val servings: Int? = null,
+    val readyInMinutes: Int? = null
 )
 
 data class AnalyzedInstructions(
