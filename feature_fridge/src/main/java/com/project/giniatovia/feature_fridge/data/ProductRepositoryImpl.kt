@@ -21,7 +21,10 @@ class ProductRepositoryImpl(
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    override suspend fun insertProduct(recipe: ProductEntity) = productDao.insertProduct(recipe)
+    override suspend fun insertProduct(product: ProductEntity) = productDao.insertProduct(product)
 
     override suspend fun getSavedProducts(): List<ProductEntity> = productDao.getSavedProducts()
+
+    @WorkerThread
+    override suspend fun deleteProduct(product: ProductEntity) = productDao.deleteProduct(product)
 }

@@ -7,4 +7,5 @@ interface ProductRepository {
     fun getAllProducts() : Single<List<String>>
     suspend fun insertProduct(recipe: ProductEntity)
     suspend fun getSavedProducts() : List<ProductEntity>
+    suspend fun deleteProduct(product: ProductEntity)
 }

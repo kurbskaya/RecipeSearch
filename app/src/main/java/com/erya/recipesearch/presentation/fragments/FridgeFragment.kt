@@ -109,7 +109,9 @@ class FridgeFragment : Fragment() {
                 is UiItemError.Success -> {
                     val productAdapter = binding.rv.adapter
                     if (productAdapter == null) {
-                        val myAdapter = ProductAdapter()
+                        val myAdapter = ProductAdapter(
+                            onDeleteProductClick = { viewModel.deleteProduct(it) }
+                        )
                         binding.rv.adapter = myAdapter
                         binding.rv.layoutManager = LinearLayoutManager(requireContext())
                         myAdapter.submitList(uiItemError.elements)

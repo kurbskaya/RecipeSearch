@@ -18,25 +18,13 @@ class RecipeViewModel(
     private val _recipeInfoLiveData = MutableLiveData<UiItemError<RecipeInfoViewData>>()
     val recipeInfoLiveData: LiveData<UiItemError<RecipeInfoViewData>> = _recipeInfoLiveData
 
-//    private val _savedRecipeLiveData = MutableLiveData<List<RecipeViewData>>()
-//    val savedRecipeLiveData: LiveData<List<RecipeViewData>> = _savedRecipeLiveData
+    private val _isSavedRecipe = MutableLiveData<Boolean>()
+    val isSavedRecipe: LiveData<Boolean> = _isSavedRecipe
 
     fun insertRecipeDb(recipe: RecipeInfoViewData) = viewModelScope.launch {
         repository.insertRecipe(
             ViewDataMapper.mapInfoViewDataToRecipeEntity(recipe)
         )
-//        val oldList = _recipeLiveData.value
-//        if (oldList == null){
-//            _recipeLiveData.value = arrayListOf(
-//                ViewDataMapper.mapRecipeEntityToViewData(recipe)
-//            )
-//            return@launch
-//        }
-//        val tmp = ArrayList<RecipeViewData>(oldList)
-//        tmp.add(
-//            ViewDataMapper.mapRecipeEntityToViewData(recipe)
-//        )
-//        _recipeLiveData.value = tmp
     }
 
     fun getSavedRecipes() {
@@ -79,4 +67,19 @@ class RecipeViewModel(
             }
         }
     }
+
+    fun deleteRecipeDb(recipe: RecipeInfoViewData) = viewModelScope.launch {
+        repository.deleteRecipe(
+            ViewDataMapper.mapInfoViewDataToRecipeEntity(recipe)
+        )
+    }
+
+    fun clearLiveData() {
+        _recipeLiveData.value = UiItemError.Success(arrayListOf())
+    }
+
+    fun searchDb(recipeId: Int) =
+        viewModelScope.launch {
+            _isSavedRecipe.value = repository.searchRecipe(recipeId)
+        }
 }

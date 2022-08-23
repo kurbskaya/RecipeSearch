@@ -1,9 +1,6 @@
 package com.project.giniatovia.core.db.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.project.giniatovia.core.db.models.ProductEntity
 
 @Dao
@@ -17,4 +14,7 @@ interface ProductDao {
 
     @Query("DELETE FROM saved_products")
     suspend fun deleteAllRecords()
+
+    @Delete
+    suspend fun deleteProduct(product: ProductEntity)
 }

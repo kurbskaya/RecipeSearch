@@ -12,4 +12,6 @@ interface RecipesRepository {
     suspend fun getRecipeInfoById(id: Int): RecipeInstructionDomain
     suspend fun insertRecipe(recipe: RecipeEntity)
     suspend fun getSavedRecipes() : List<RecipeEntity>
+    suspend fun deleteRecipe(recipe: RecipeEntity)
+    suspend fun searchRecipe(recipeId: Int): Boolean
 }

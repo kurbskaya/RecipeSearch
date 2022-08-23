@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.project.giniatovia.feature_recipe.databinding.ItemRecipeBinding
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
 
-class RecipesAdapter(private val recipeClickListener: RecipeClickListener)
+class RecipesAdapter(private val onRecipeClick:  (item: RecipeViewData) -> Unit)
     : ListAdapter<RecipeViewData, RecipesAdapter.RecipesViewHolder>(RecipeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
@@ -23,7 +23,7 @@ class RecipesAdapter(private val recipeClickListener: RecipeClickListener)
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         val id = getItem(position)
         holder.itemView.setOnClickListener{
-            recipeClickListener.onRecipeClick(id)
+            onRecipeClick(id)
         }
         holder.bind(getItem(position))
     }

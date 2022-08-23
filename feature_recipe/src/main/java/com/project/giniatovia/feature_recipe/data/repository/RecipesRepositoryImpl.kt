@@ -23,4 +23,10 @@ class RecipesRepositoryImpl(
     override suspend fun insertRecipe(recipe: RecipeEntity) = dao.insert(recipe)
 
     override suspend fun getSavedRecipes(): List<RecipeEntity> = dao.getSavedRecipes()
+
+    @WorkerThread
+    override suspend fun deleteRecipe(recipe: RecipeEntity) = dao.delete(recipe)
+
+    @WorkerThread
+    override suspend fun searchRecipe(recipeId: Int) = dao.search(recipeId)
 }

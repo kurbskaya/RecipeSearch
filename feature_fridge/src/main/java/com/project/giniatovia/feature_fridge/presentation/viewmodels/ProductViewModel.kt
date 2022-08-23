@@ -71,6 +71,18 @@ class ProductViewModel(
         compositeDisposable.clear()
     }
 
+    fun deleteProduct(item: Product) {
+        val oldList = (_productLiveData.value as UiItemError.Success<List<Product>>).elements
+            ?: return
+        val newList = oldList.filter { it.name != item.name }
+        _productLiveData.value = UiItemError.Success(newList)
+        viewModelScope.launch {
+            repository.deleteProduct(
+                ProductMapper.mapProductToEntity(item)
+            )
+        }
+    }
+
     companion object {
         private const val IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
         private const val FORMAT = ".jpg"
