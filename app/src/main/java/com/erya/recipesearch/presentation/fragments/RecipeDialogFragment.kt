@@ -80,11 +80,6 @@ class RecipeDialogFragment : Fragment() {
                     .into(binding.recipeDialogImg)
 
                 binding.textRecipe.text = uiItemError.elements?.summary
-
-                //val bottomSheetDialogFragment = RecipeBottomSheetDialogFragment
-                    //.newInstance(uiItemError.elements?.summary!!)
-                //bottomSheetDialogFragment.setCancelable(false)
-                //bottomSheetDialogFragment.show(requireActivity().supportFragmentManager, "tag1")
             }
         }
 
