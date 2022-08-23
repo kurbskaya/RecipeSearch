@@ -80,7 +80,7 @@ class RecipeDialogFragment : Fragment() {
                     .load(uiItemError.elements?.image)
                     .circleCrop()
                     .into(binding.recipeDialogImg)
-
+                // TODO: Отобразить title и распарсить HTML
                 binding.textRecipe.text = uiItemError.elements?.summary
             }
         }

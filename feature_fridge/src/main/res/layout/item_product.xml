@@ -11,54 +11,48 @@
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/product_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="10dp"
             android:layout_width="100dp"
             android:layout_height="67dp"
             android:layout_alignParentStart="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:src="@drawable/coco"/>
 
-        <LinearLayout
-            android:id="@+id/text_container"
+        <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/product_image"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif-black"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                tools:text="Potato" />
-
-            <TextView
-                android:id="@+id/energy"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:fontFamily="sans-serif"
-                android:textSize="12sp"
-                tools:text="141 kkal" />
-
-        </LinearLayout>
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf="@id/product_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:maxWidth="150dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            tools:text="Potato" />
 
         <ImageView
             android:id="@+id/image_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="10dp"
             android:src="@drawable/ic_close"/>
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
