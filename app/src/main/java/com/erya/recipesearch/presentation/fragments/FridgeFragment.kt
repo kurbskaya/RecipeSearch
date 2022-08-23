@@ -40,26 +40,28 @@ class FridgeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFridgeBinding.inflate(inflater, container, false)
+        val recipeDataSource = RecipeDataSource(
+            RecipeApiImpl(
+                RetrofitImpl(
+                    ConverterFactoryImpl(), OkHttpClientImpl(
+                        InterceptorImpl(
+                            HttpLoggingInterceptor.Level.BODY
+                        )
+                    )
+                )
+            ).recipesService(),
+        )
         viewModel = ViewModelProvider(
             requireActivity(),
             ViewModelFactory(
                 RecipesRepositoryImpl(
-                    RecipeDataSource(
-                        RecipeApiImpl(
-                            RetrofitImpl(
-                                ConverterFactoryImpl(), OkHttpClientImpl(
-                                    InterceptorImpl(
-                                        HttpLoggingInterceptor.Level.BODY
-                                    )
-                                )
-                            )
-                        ).recipesService(),
-                    ),
+                    recipeDataSource,
                     (requireActivity().application as RecipesApplication).databaseRecipe.recipeDao()
                 ),
                 ProductRepositoryImpl(
                     requireContext(),
-                    (requireActivity().application as RecipesApplication).databaseProducts.productDao()
+                    (requireActivity().application as RecipesApplication).databaseProducts.productDao(),
+                    recipeDataSource
                 ),
                 PageRepositoryImpl()
             )
