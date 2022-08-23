@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.erya.recipesearch.R
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.project.giniatovia.core.db.data.RecipeRoomDatabase
+import com.project.giniatovia.core.network.api.ResourceProvider
 import com.project.giniatovia.core.network.implementation.*
 import com.project.giniatovia.feature_fridge.data.ProductRepositoryImpl
 import com.project.giniatovia.feature_recipe.data.datasource.RecipeDataSource
@@ -83,8 +85,9 @@ class RecipeDialogFragment : Fragment() {
                     .circleCrop()
                     .into(binding.recipeDialogImg)
                 binding.recipeDialogTitle.text = uiItemError.elements?.title
-                binding.textRecipe.text =
-                    Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT)
+                val listIngredients = uiItemError.elements?.extendedIngredients?.map { it.name }?.joinToString("\n")
+                binding.listIngredients.text = listIngredients
+                binding.textRecipe.text = Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT).toString()
                 binding.serviesTv.text = uiItemError.elements?.servings.toString()
                 binding.timeTv.text = uiItemError.elements?.readyInMinutes.toString()
             }
