@@ -43,18 +43,21 @@
             android:id="@+id/recipe_dialog_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_margin="40dp"
+            android:gravity="center"
             android:scaleType="centerInside"
             app:layout_constraintTop_toBottomOf="@id/recipe_dialog_img"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/white"
+            android:textSize="30sp"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/recipe_dialog_title"
-            android:layout_marginTop="90dp">
+            android:layout_marginTop="40dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -67,6 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
                     android:fontFamily="@font/roboto_regular" />
             </androidx.cardview.widget.CardView>
 

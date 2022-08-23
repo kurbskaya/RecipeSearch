@@ -1,6 +1,7 @@
 package com.erya.recipesearch.presentation.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,8 +81,9 @@ class RecipeDialogFragment : Fragment() {
                     .load(uiItemError.elements?.image)
                     .circleCrop()
                     .into(binding.recipeDialogImg)
-                // TODO: Отобразить title и распарсить HTML
-                binding.textRecipe.text = uiItemError.elements?.summary
+                binding.recipeDialogTitle.text = uiItemError.elements?.title
+                binding.textRecipe.text =
+                    Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT)
             }
         }
 
