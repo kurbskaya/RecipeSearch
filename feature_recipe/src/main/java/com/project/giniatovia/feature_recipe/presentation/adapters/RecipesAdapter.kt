@@ -1,6 +1,7 @@
 package com.project.giniatovia.feature_recipe.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,14 @@ class RecipesAdapter(private val onRecipeClick:  (item: RecipeViewData) -> Unit)
 
         fun bind(recipe: RecipeViewData) {
             binding.text1.text = recipe.title
-            // TODO:  
+
+            if (recipe.missedIngredientCount == null || recipe.usedIngredientCount == null) {
+                binding.countIngredientsContainer.visibility = View.GONE
+            } else {
+                binding.countIngredientsContainer.visibility = View.VISIBLE
+                binding.missedNum.text = recipe.missedIngredientCount.toString()
+                binding.usedNum.text = recipe.usedIngredientCount.toString()
+            }
             Glide.with(binding.productImage.context)
                 .load(recipe.image)
                 .circleCrop()

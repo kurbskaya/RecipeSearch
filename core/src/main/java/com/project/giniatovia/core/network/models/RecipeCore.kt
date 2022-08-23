@@ -10,4 +10,9 @@ data class RecipeCore(
     @SerializedName("summary") val summary: String? = null,
     @SerializedName("instructions") val instructions: String? = null,
     @SerializedName("analyzedInstructions") val analyzedInstructions: List<AnalyzedInstructions> = listOf(),
+    @SerializedName("missedIngredientCount") val missedIngredientCount: Int? = null,
+    @SerializedName("usedIngredientCount") val usedIngredientCount: Int? = null,
+    @SerializedName("calories") val calories: String? = null,
+    @SerializedName("servings") val servings: Int? = null,
+    @SerializedName("readyInMinutes") val readyInMinutes: Int? = null,
 )

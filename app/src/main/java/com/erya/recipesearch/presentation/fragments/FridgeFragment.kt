@@ -75,6 +75,12 @@ class FridgeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val toolbar = binding.toolbar
+        toolbar.setNavigationIcon(com.project.giniatovia.feature_recipe.R.drawable.ic_back_green)
+        toolbar.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
         val lifecycleOwner = viewLifecycleOwner
         viewModel.allProductLiveData.observe(lifecycleOwner) { uiItemError ->
             when (uiItemError) {

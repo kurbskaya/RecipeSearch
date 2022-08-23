@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.project.giniatovia.feature_recipe.domain.repository.RecipesRepository
 import com.project.giniatovia.feature_recipe.presentation.ViewDataMapper
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeInfoViewData
+import com.project.giniatovia.feature_recipe.presentation.models.RecipeNutritionViewData
 import com.project.giniatovia.feature_recipe.presentation.models.RecipeViewData
 import com.project.giniatovia.feature_recipe.presentation.models.UiItemError
 import kotlinx.coroutines.launch
@@ -21,6 +22,9 @@ class RecipeViewModel(
     private val _isSavedRecipe = MutableLiveData<Boolean>()
     val isSavedRecipe: LiveData<Boolean> = _isSavedRecipe
 
+    private val _recipeNutritionLiveData = MutableLiveData<UiItemError<RecipeNutritionViewData>>()
+    val recipeNutritionLiveData: LiveData<UiItemError<RecipeNutritionViewData>> = _recipeNutritionLiveData
+
     fun insertRecipeDb(recipe: RecipeInfoViewData) = viewModelScope.launch {
         repository.insertRecipe(
             ViewDataMapper.mapInfoViewDataToRecipeEntity(recipe)
@@ -35,6 +39,20 @@ class RecipeViewModel(
                 _recipeLiveData.value = UiItemError.Success(recipes)
             }.onFailure { exception ->
                 _recipeLiveData.value = UiItemError.Error(exception)
+            }
+        }
+    }
+
+    fun getRecipeNutritionById(id: Int) {
+        viewModelScope.launch {
+            runCatching {
+                repository.getRecipeInfoNutrition(id)
+            }.onSuccess { info ->
+                _recipeNutritionLiveData.value = UiItemError.Success(
+                    ViewDataMapper.mapRecipeNutritionsToViewData(info)
+                )
+            }.onFailure { exception ->
+                _recipeNutritionLiveData.value = UiItemError.Error(exception)
             }
         }
     }
@@ -80,6 +98,10 @@ class RecipeViewModel(
 
     fun clearInfoLiveData() {
         _recipeInfoLiveData.value = UiItemError.Loading()
+    }
+
+    fun clearNutritionLiveData() {
+        _recipeNutritionLiveData.value = UiItemError.Loading()
     }
 
     fun searchDb(recipeId: Int) =

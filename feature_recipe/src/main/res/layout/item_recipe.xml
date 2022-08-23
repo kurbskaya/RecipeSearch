@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <ImageView
@@ -24,16 +25,87 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center"
             android:maxLines="2"
+            android:minLines="2"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Potato" />
+
+        <LinearLayout
+            android:id="@+id/count_ingredients_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Missed"
+                    android:textColor="#B9B9B9"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/missed_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#B9B9B9"
+                    android:textSize="12sp"
+                    tools:text="3" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="#B9B9B9" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Used"
+                    android:textColor="#B9B9B9"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/used_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="#B9B9B9"
+                    android:textSize="12sp"
+                    tools:text="2" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

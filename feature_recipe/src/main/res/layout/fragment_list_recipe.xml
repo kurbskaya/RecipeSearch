@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="#F8F8F8">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Choose recipe"
+        app:titleCentered="true"
+        app:titleTextColor="@color/black" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieRecipes"
         android:layout_width="300dp"
@@ -16,7 +26,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/emptyTV"
@@ -30,24 +40,72 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/lottieRecipes" />
 
-    <ImageView
-        android:id="@+id/ic_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/ic_back_green" />
+    <LinearLayout
+        android:id="@+id/tags"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Sort by:"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/tag_background"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Time"
+            android:textAllCaps="false"
+            android:textColor="#65000000"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/tag_background"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Calories"
+            android:textAllCaps="false"
+            android:textColor="#65000000"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/tag_background"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Alphabet"
+            android:textAllCaps="false"
+            android:textColor="#65000000"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        tools:listitem="@layout/item_recipe"/>
+        app:layout_constraintTop_toBottomOf="@+id/tags"
+        tools:listitem="@layout/item_recipe" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

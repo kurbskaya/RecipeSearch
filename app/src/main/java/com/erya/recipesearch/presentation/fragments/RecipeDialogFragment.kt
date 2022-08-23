@@ -65,10 +65,10 @@ class RecipeDialogFragment : Fragment() {
     ): View {
         _binding = RecipeDialogBinding.inflate(inflater, container, false)
         val args = arguments?.getInt(ID_RECIPE)
-        //viewModel.clearInfoLiveData()
         if (args != null) {
             viewModel.getRecipeInfoById(args)
             viewModel.searchDb(args)
+            viewModel.getRecipeNutritionById(args)
         }
         return binding.root
     }
@@ -85,6 +85,14 @@ class RecipeDialogFragment : Fragment() {
                 binding.recipeDialogTitle.text = uiItemError.elements?.title
                 binding.textRecipe.text =
                     Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT)
+                binding.serviesTv.text = uiItemError.elements?.servings.toString()
+                binding.timeTv.text = uiItemError.elements?.readyInMinutes.toString()
+            }
+        }
+
+        viewModel.recipeNutritionLiveData.observe(viewLifecycleOwner) { uiItemError ->
+            if (uiItemError is UiItemError.Success) {
+                binding.caloriesTv.text = uiItemError.elements?.calories
             }
         }
 
@@ -125,6 +133,7 @@ class RecipeDialogFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         viewModel.clearInfoLiveData()
+        viewModel.clearNutritionLiveData()
         super.onDestroyView()
     }
 

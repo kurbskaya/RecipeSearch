@@ -5,4 +5,6 @@ data class RecipeDomain(
     val title: String? = null,
     val image: String? = null,
     val summary: String? = null,
+    val missedIngredientCount: Int? = null,
+    val usedIngredientCount: Int? = null,
 )

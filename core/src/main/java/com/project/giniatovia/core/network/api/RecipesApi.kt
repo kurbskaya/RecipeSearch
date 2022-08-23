@@ -20,4 +20,7 @@ interface RecipesApi {
 
     @GET("food/ingredients/search")
     suspend fun getProductImage(@Query("query") product: String) : ProductResponse
+
+    @GET("recipes/{id}/nutritionWidget.json")
+    suspend fun getRecipeInfoNutrition(@Path("id") id: Int) : RecipeCore
 }
