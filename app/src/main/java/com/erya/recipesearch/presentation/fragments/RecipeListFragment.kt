@@ -76,6 +76,12 @@ class RecipeListFragment : Fragment() {
 
         val lifecycleOwner = viewLifecycleOwner
 
+        val goBackButton = binding.icBack
+
+        goBackButton.setOnClickListener{
+            parentFragmentManager.popBackStack()
+        }
+
         viewModel.recipeLiveData.observe(lifecycleOwner) { uiItemError ->
             when (uiItemError) {
                 is UiItemError.Success -> {
