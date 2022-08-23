@@ -51,11 +51,10 @@
             android:layout_margin="10dp"
             android:background="@drawable/secondary_button_background"
             android:fontFamily="@font/roboto_regular"
-            android:text="Saved dishes"
             android:textAllCaps="false"
+            android:text="Favourite recipes"
             android:textColor="#3A6E39"
             android:textSize="20sp" />
-            android:text="Favourite recipes" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
