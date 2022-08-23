@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieDrawable
 import com.erya.recipesearch.data.repository.PageRepositoryImpl
 import com.erya.recipesearch.presentation.viewmodels.ViewModelFactory
 import com.erya.recipesearch.RecipesApplication
@@ -112,6 +113,11 @@ class FridgeFragment : Fragment() {
         viewModel.productLiveData.observe(lifecycleOwner) { uiItemError ->
             when (uiItemError) {
                 is UiItemError.Success -> {
+                    if (uiItemError.elements?.size == 0) {
+                        handleEmptyScreen()
+                    } else {
+                        handleFilledScreen(uiItemError)
+                    }
                     val productAdapter = binding.rv.adapter
                     if (productAdapter == null) {
                         val myAdapter = ProductAdapter(
@@ -124,16 +130,6 @@ class FridgeFragment : Fragment() {
                         val myAdapter = productAdapter as ProductAdapter
                         myAdapter.submitList(uiItemError.elements)
                     }
-                    binding.mainBtn.setOnClickListener {
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(
-                                R.id.fragment_container, RecipeListFragment.newInstance(
-                                    makeList(uiItemError.elements) as ArrayList<String>
-                                )
-                            )
-                            .addToBackStack(null)
-                            .commit()
-                    }
                 }
                 is UiItemError.Error -> {
                     // TODO: Show errors
@@ -144,6 +140,39 @@ class FridgeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun handleFilledScreen(uiItemError: UiItemError.Success<List<Product>>) {
+        val lottieImg = binding.lottieProducts
+        lottieImg.clearAnimation()
+        lottieImg.visibility = View.GONE
+
+        binding.emptyTV.visibility = View.GONE
+        binding.mainBtn.visibility = View.VISIBLE
+        binding.secondaryBtn.visibility = View.GONE
+
+        binding.mainBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragment_container, RecipeListFragment.newInstance(
+                        makeList(uiItemError.elements) as ArrayList<String>
+                    )
+                )
+                .addToBackStack(null)
+                .commit()
+        }
+    }
+
+    private fun handleEmptyScreen() {
+        val lottieImg = binding.lottieProducts
+        lottieImg.setAnimation(R.raw.empty_products_lottie)
+        lottieImg.repeatCount = LottieDrawable.INFINITE
+        lottieImg.visibility = View.VISIBLE
+        lottieImg.playAnimation()
+
+        binding.emptyTV.visibility = View.VISIBLE
+        binding.secondaryBtn.visibility = View.VISIBLE
+        binding.mainBtn.visibility = View.GONE
     }
 
     override fun onDestroyView() {
