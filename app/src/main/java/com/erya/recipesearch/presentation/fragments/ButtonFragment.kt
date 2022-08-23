@@ -21,7 +21,6 @@ class ButtonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = ButtonFragmentBinding.inflate(inflater, container,false)
-
         return binding.root
     }
 
