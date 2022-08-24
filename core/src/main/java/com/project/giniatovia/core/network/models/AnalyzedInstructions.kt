@@ -2,7 +2,7 @@ package com.project.giniatovia.core.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class AnalyzedInstructions(
+class AnalyzedInstructions(
     @SerializedName("name") val name: String? = null,
     @SerializedName("steps") val steps: List<Step> = listOf()
 )

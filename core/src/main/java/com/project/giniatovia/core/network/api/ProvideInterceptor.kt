@@ -1,5 +1,6 @@
 package com.project.giniatovia.core.network.api
 
+import com.project.giniatovia.core.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -20,13 +21,9 @@ interface ProvideInterceptor {
         override fun headerInterceptor(): Interceptor {
             return Interceptor { chain ->
                 val builder = chain.request().newBuilder()
-                builder.header("x-api-key", API_KEY)
+                builder.header("x-api-key", BuildConfig.API_KEY)
                 chain.proceed(builder.build())
             }
         }
-    }
-
-    companion object {
-        const val API_KEY = "ed38ab470ce64bc7a1906a082c583f2c"
     }
 }
