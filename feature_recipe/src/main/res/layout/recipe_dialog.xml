@@ -46,11 +46,11 @@
             android:id="@+id/recipe_dialog_img"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:scaleType="centerInside"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/recipe_dialog_title" />
 
         <LinearLayout
             android:id="@+id/info"
