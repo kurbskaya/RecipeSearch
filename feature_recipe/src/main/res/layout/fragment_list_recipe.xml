@@ -6,98 +6,128 @@
     android:layout_height="match_parent"
     android:background="#F8F8F8">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Choose recipe"
-        app:titleCentered="true"
-        app:titleTextColor="@color/black" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieRecipes"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_marginBottom="20dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/emptyTV"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Choose Recipe"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:fontFamily="@font/roboto_regular"
-        android:gravity="center"
-        android:text="It's still empty here. Add favourite recipe to see it here."
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/lottieRecipes" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <LinearLayout
-        android:id="@+id/tags"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Sort by:"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieRecipes"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:layout_marginBottom="20dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/tag_background"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Time"
-            android:textAllCaps="false"
-            android:textColor="#65000000"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/emptyTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:text="It's still empty here. Add favourite recipe to see it here."
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/lottieRecipes" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/tag_background"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Calories"
-            android:textAllCaps="false"
-            android:textColor="#65000000"
-            android:textSize="16sp" />
+            <LinearLayout
+                android:id="@+id/tags"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/tag_background"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Alphabet"
-            android:textAllCaps="false"
-            android:textColor="#65000000"
-            android:textSize="16sp" />
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Sort by:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_recipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tags"
-        tools:listitem="@layout/item_recipe" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/tag_background"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Time"
+                    android:textAllCaps="false"
+                    android:textColor="#65000000"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/tag_background"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Calories"
+                    android:textAllCaps="false"
+                    android:textColor="#65000000"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/tag_background"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Alphabet"
+                    android:textAllCaps="false"
+                    android:textColor="#65000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tags"
+                tools:listitem="@layout/item_recipe" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progress_bar"
