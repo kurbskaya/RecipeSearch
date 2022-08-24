@@ -96,7 +96,7 @@ class RecipeDialogFragment : Fragment() {
 
         viewModel.recipeNutritionLiveData.observe(viewLifecycleOwner) { uiItemError ->
             if (uiItemError is UiItemError.Success) {
-                binding.caloriesTv.text = uiItemError.elements?.calories + "Kal"
+                binding.caloriesTv.text = uiItemError.elements?.calories + "Сal"
             }
         }
 

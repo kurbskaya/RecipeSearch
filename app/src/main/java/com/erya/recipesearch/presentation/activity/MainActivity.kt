@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace(R.id.fragment_container, ButtonFragment())
-                addToBackStack(null)
             }
         }
 
