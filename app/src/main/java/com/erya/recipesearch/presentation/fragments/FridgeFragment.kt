@@ -45,9 +45,7 @@ class FridgeFragment : Fragment() {
             RecipeApiImpl(
                 RetrofitImpl(
                     ConverterFactoryImpl(), OkHttpClientImpl(
-                        InterceptorImpl(
-                            HttpLoggingInterceptor.Level.BODY
-                        )
+                        InterceptorImpl.Release()
                     )
                 )
             ).recipesService(),
