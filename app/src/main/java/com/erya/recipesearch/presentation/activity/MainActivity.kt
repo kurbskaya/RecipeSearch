@@ -2,6 +2,7 @@ package com.erya.recipesearch.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import com.erya.recipesearch.R
 import com.erya.recipesearch.databinding.ActivityMainBinding
 import com.erya.recipesearch.presentation.fragments.ButtonFragment
@@ -18,6 +19,14 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fragment_container, ButtonFragment())
+                addToBackStack(null)
+            }
+        }
+
         val prefs = getSharedPreferences(SharedPreferencesKeys.PREFS_FILE, MODE_PRIVATE)
         val isFirstLaunch = prefs.getBoolean(SharedPreferencesKeys.FIRST_LAUNCH, true)
 
@@ -28,10 +37,6 @@ class MainActivity : AppCompatActivity() {
 
             OnboardingDialogFragment().show(supportFragmentManager, "onboarding")
         }
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ButtonFragment())
-            .commit()
     }
 
 }

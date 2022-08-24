@@ -85,9 +85,10 @@ class RecipeDialogFragment : Fragment() {
                     .circleCrop()
                     .into(binding.recipeDialogImg)
                 binding.recipeDialogTitle.text = uiItemError.elements?.title
-                val listIngredients = uiItemError.elements?.extendedIngredients?.map { it.name }?.joinToString("\n")
+                val listIngredients = uiItemError.elements?.extendedIngredients?.map { it.name }?.joinToString("\n- ", "- ")
                 binding.listIngredients.text = listIngredients
-                binding.textRecipe.text = Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT).toString()
+                //binding.textRecipe.text = Html.fromHtml(uiItemError.elements?.summary, Html.FROM_HTML_MODE_COMPACT).toString()
+                binding.textRecipe.text = uiItemError.elements?.analyzedInstructions?.joinToString("\n\t\t", "\t\t")
                 binding.serviesTv.text = uiItemError.elements?.servings.toString()
                 binding.timeTv.text = uiItemError.elements?.readyInMinutes.toString()
             }
@@ -95,7 +96,7 @@ class RecipeDialogFragment : Fragment() {
 
         viewModel.recipeNutritionLiveData.observe(viewLifecycleOwner) { uiItemError ->
             if (uiItemError is UiItemError.Success) {
-                binding.caloriesTv.text = uiItemError.elements?.calories
+                binding.caloriesTv.text = uiItemError.elements?.calories + "Kal"
             }
         }
 
